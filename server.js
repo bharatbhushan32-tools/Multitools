@@ -191,4 +191,141 @@ This is the updated HTML file. It now includes the UI and `fetch` logic for ever
         const footerEl = document.getElementById('footer');
 
         // --- Generic Render Functions ---
-        c
+        const renderHeader = () => { /* ... */ const mobileMenu = state.isMenuOpen ? ` <div class="md:hidden bg-gray-800/95 backdrop-blur-sm"> <nav class="flex flex-col items-center space-y-4 py-4"> <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="home">Home</a> <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="all-tools">All Tools</a> <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="how-to-use">How to Use</a> <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="about">About Us</a> <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="contact">Contact</a> </nav> </div>` : ''; return ` <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="flex items-center justify-between h-24"> <a href="#" data-navigate="home"><span class="text-2xl font-bold text-white">Bharat Bhushan</span></a> <nav class="hidden md:flex md:items-center md:space-x-8"> <a href="#" data-navigate="home" class="font-medium text-gray-300 hover:text-white">Home</a> <a href="#" data-navigate="all-tools" class="font-medium text-gray-300 hover:text-white">All Tools</a> <a href="#" data-navigate="how-to-use" class="font-medium text-gray-300 hover:text-white">How to Use</a> <a href="#" data-navigate="about" class="font-medium text-gray-300 hover:text-white">About Us</a> <a href="#" data-navigate="contact" class="font-medium text-gray-300 hover:text-white">Contact</a> </nav> <div class="md:hidden"><button id="menu-toggle" class="text-gray-300 hover:text-white">${state.isMenuOpen ? icons.X : icons.Menu}</button></div> </div> </div> ${mobileMenu} `; };
+        const renderFooter = () => { /* ... */ return ` <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12"> <div class="grid grid-cols-2 md:grid-cols-4 gap-8"> <div><h3 class="font-bold text-lg mb-4">Bharat Bhushan</h3><p class="text-gray-400 text-sm">All your essential utilities in one place.</p></div> <div><h3 class="font-bold text-lg mb-4">Quick Links</h3><ul class="space-y-2"> <li><a href="#" data-navigate="about" class="text-gray-400 hover:text-white">About</a></li> <li><a href="#" data-navigate="contact" class="text-gray-400 hover:text-white">Contact</a></li> <li><a href="#" data-navigate="how-to-use" class="text-gray-400 hover:text-white">How to Use</a></li> </ul></div> <div><h3 class="font-bold text-lg mb-4">Tool Categories</h3><ul class="space-y-2"> <li><a href="#" data-navigate="all-tools" data-category="Video Tools" class="text-gray-400 hover:text-white">Video Tools</a></li> <li><a href="#" data-navigate="all-tools" data-category="Image Tools" class="text-gray-400 hover:text-white">Image Tools</a></li> <li><a href="#" data-navigate="all-tools" data-category="PDF Tools" class="text-gray-400 hover:text-white">PDF Tools</a></li> </ul></div> <div><h3 class="font-bold text-lg mb-4">Legal</h3><ul class="space-y-2"> <li><a href="#" data-navigate="privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li> <li><a href="#" data-navigate="terms" class="text-gray-400 hover:text-white">Terms of Service</a></li> <li><a href="#" data-navigate="disclaimer" class="text-gray-400 hover:text-white">Disclaimer</a></li> </ul></div> </div> <div class="mt-8 border-t border-gray-700 pt-8 text-center text-gray-500"><p>&copy; ${new Date().getFullYear()} Bharat Bhushan. All rights reserved.</p></div> </div> `; };
+        const renderHomePage = () => { /* ... */ return ` <div class="animate-fade-in"> <section class="bg-gray-900 text-white relative overflow-hidden"> <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-48 md:pb-32"> <div class="animated-section grid md:grid-cols-2 gap-8 items-center"> <div class="text-center md:text-left"> <p class="font-bold text-cyan-400 uppercase tracking-widest">Welcome to Bharat Bhushan</p> <h1 class="text-5xl md:text-7xl font-extrabold text-white mt-4">BEST TOOL SITE EVER!</h1> <p class="mt-6 text-lg text-gray-300 max-w-lg mx-auto md:mx-0">All your essential utilities in one place. Powerful, fast, and easy to use for everyone.</p> <div class="mt-10"><a href="#" data-navigate="all-tools" class="bg-cyan-500 text-white font-bold py-4 px-10 rounded-full hover:bg-cyan-600 transition-all duration-300 transform hover:scale-105 inline-block text-lg">Explore All Tools</a></div> </div> <div class="hidden md:flex justify-center items-center"><div class="w-80 h-80 bg-cyan-500/20 rounded-2xl flex items-center justify-center shadow-2xl animate-pulse"><p class="text-cyan-200 text-2xl font-bold">imgbb.com</p></div></div> </div> </div> <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div> </section> <section id="features" class="bg-gray-50 py-16 md:py-24"> <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"><p class="font-bold text-cyan-500 uppercase tracking-widest">Our Features</p><h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mt-2">A Wide Range of Categories</h2></div> <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"> ${Object.entries(toolCategories).map(([category, { icon }], index) => ` <div data-navigate="all-tools" data-category="${category}" class="category-card-glow bg-white rounded-2xl transition-all duration-300 p-8 flex flex-col items-center text-center group cursor-pointer transform hover:-translate-y-2" style="transition-delay: ${index * 100}ms"> <div class="w-24 h-24 bg-cyan-50 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 text-cyan-500">${icon}</div> <h3 class="text-2xl font-bold text-gray-800">${category}</h3> <p class="text-gray-500 mt-2 flex-grow">${toolCategories[category].tools.length} tools available</p> <div class="w-24 h-1 bg-cyan-200 mt-6 rounded-full group-hover:bg-cyan-500 transition-colors duration-300"></div> </div> `).join('')} </div> </div> </section> </div> `; };
+        const renderToolCard = (tool) => { /* ... */ return ` <div class="tool-card-glow bg-white p-6 rounded-xl transition-all flex flex-col text-left group"> <div class="flex-grow"> <h3 class="font-bold text-gray-800 group-hover:text-cyan-600 transition-colors">${tool.name}</h3> <p class="text-sm text-gray-500 mt-1">${tool.description}</p> </div> <button data-navigate="${tool.id}" class="mt-4 w-full bg-cyan-50 text-cyan-700 font-semibold py-2 px-4 rounded-lg group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300 text-center"> Open Tool </button> </div> `; };
+        const renderAllToolsPage = () => { /* ... */ const filteredTools = allTools.filter(tool => { const inCategory = state.activeCategory === 'All' || tool.category === state.activeCategory; const inSearch = tool.name.toLowerCase().includes(state.searchTerm.toLowerCase()) || tool.description.toLowerCase().includes(state.searchTerm.toLowerCase()); return inCategory && inSearch; }); let toolGrid; if (state.activeCategory === 'All' && !state.searchTerm) { toolGrid = Object.entries(toolCategories).map(([category, { icon, tools }]) => ` <div id="category-${category.replace(/\s+/g, '-')}" class="mb-16"> <div class="flex items-center gap-3 mb-6"><span class="text-cyan-500">${icon}</span><h2 class="text-3xl font-bold text-gray-800">${category}</h2></div> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> ${tools.map(tool => renderToolCard(tool)).join('')} </div> </div> `).join(''); } else { toolGrid = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> ${filteredTools.length > 0 ? filteredTools.map(tool => renderToolCard(tool)).join('') : `<p class="col-span-full text-center text-gray-500">No tools found.</p>`} </div>`; } return ` <div class="bg-gray-50 pt-24 animate-fade-in"> <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16"> <div class="text-center mb-12"> <h1 class="text-5xl font-extrabold text-gray-800">All Tools</h1> <p class="text-lg text-gray-500 mt-2">Your complete suite of online utilities.</p> </div> <div class="sticky top-0 md:top-24 bg-gray-50/80 backdrop-blur-sm py-4 z-30 mb-8"> <div id="category-filter" class="flex flex-wrap justify-center gap-2 mb-6"> <button data-category="All" class="px-4 py-2 rounded-full font-semibold transition-colors ${state.activeCategory === 'All' ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/30' : 'bg-white text-gray-700 hover:bg-cyan-50'}">All</button> ${Object.keys(toolCategories).map(cat => `<button data-category="${cat}" class="px-4 py-2 rounded-full font-semibold transition-colors ${state.activeCategory === cat ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/30' : 'bg-white text-gray-700 hover:bg-cyan-50'}">${cat}</button>`).join('')} </div> <div class="relative max-w-2xl mx-auto"> <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">${icons.Search}</span> <input id="search-input" type="text" placeholder="Search for a tool..." value="${state.searchTerm}" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-cyan-500"/> </div> </div> <div id="tool-grid">${toolGrid}</div> </div> </div> `; };
+        const renderStaticPage = (title, icon, content) => { /* ... */ return ` <div class="bg-gray-50 pt-24 animate-fade-in"> <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20"> <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-4xl mx-auto"> <div class="flex items-center gap-4 text-cyan-500 mb-6">${icon}<h1 class="text-4xl font-bold text-gray-800">${title}</h1></div> <div class="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-700 prose-a:text-cyan-600 hover:prose-a:text-cyan-700">${content}</div> <button data-navigate="home" class="mt-8 flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold transition-colors duration-300">${icons.ArrowLeft} Back to Home</button> </div> </div> `; };
+        
+        // --- Tool Page Render Functions ---
+        const renderFileUploadTool = (tool, options) => {
+            const { endpoint, acceptedFiles, multiple } = options;
+            return `
+                <div class="bg-gray-50 pt-24 animate-fade-in">
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-10">
+                        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-4xl mx-auto">
+                            <button data-navigate="all-tools" class="flex items-center gap-2 text-gray-600 hover:text-cyan-600 mb-6 transition-colors duration-300">${icons.ArrowLeft} Back to All Tools</button>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-cyan-500">${toolCategories[tool.category]?.icon || icons.Settings}</div>
+                                <div><h1 class="text-3xl font-bold text-gray-800">${tool.name}</h1><p class="text-gray-500">${tool.description}</p></div>
+                            </div>
+                            <div class="border-t border-gray-200 pt-6">
+                                <form id="tool-form" data-endpoint="${endpoint}">
+                                    <input type="file" id="file-input" name="files" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100" accept="${acceptedFiles}" ${multiple ? 'multiple' : ''}/>
+                                    <button type="submit" id="submit-btn" class="mt-4 w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">Process</button>
+                                </form>
+                                <div id="results-container" class="mt-8"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        };
+        
+        // ... Add more specific tool render functions here ...
+
+        // --- MAIN RENDER FUNCTION ---
+        const render = () => {
+            const tool = allTools.find(t => t.id === state.page);
+            headerEl.innerHTML = renderHeader();
+            footerEl.innerHTML = renderFooter();
+            
+            let pageContent = '';
+            if (tool) {
+                // This is where we will eventually have a big switch for all 60 tools
+                switch (tool.id) {
+                    case 'image-compressor':
+                        pageContent = renderFileUploadTool(tool, { endpoint: 'image-compressor', acceptedFiles: 'image/jpeg,image/png', multiple: false });
+                        break;
+                    case 'image-resizer':
+                        // This would need extra fields for width/height
+                        pageContent = renderFileUploadTool(tool, { endpoint: 'image-resizer', acceptedFiles: 'image/*', multiple: false });
+                        break;
+                    case 'pdf-merger':
+                        pageContent = renderFileUploadTool(tool, { endpoint: 'pdf-merger', acceptedFiles: '.pdf', multiple: true });
+                        break;
+                    // Add cases for all other 57 tools here
+                    default:
+                        pageContent = `
+                            <div class="bg-gray-50 pt-24 animate-fade-in"><div class="container mx-auto p-8"><div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-4xl mx-auto">
+                            <button data-navigate="all-tools" class="flex items-center gap-2 text-gray-600 hover:text-cyan-600 mb-6">${icons.ArrowLeft} Back</button>
+                            <h1 class="text-3xl font-bold">${tool.name}</h1><p class="text-gray-500">${tool.description}</p>
+                            <div class="mt-6 border-t pt-6 bg-yellow-100 text-yellow-800 p-4 rounded-lg">This tool is under construction.</div>
+                            </div></div></div>`;
+                }
+            } else {
+                switch (state.page) {
+                    case 'home': pageContent = renderHomePage(); break;
+                    case 'all-tools': pageContent = renderAllToolsPage(); break;
+                    // ... other static pages
+                    default: pageContent = renderHomePage();
+                }
+            }
+            mainContent.innerHTML = pageContent;
+            attachEventListeners();
+            setupScrollAnimations();
+        };
+
+        // --- EVENT HANDLING ---
+        const attachEventListeners = () => {
+            document.body.addEventListener('click', e => {
+                const navTarget = e.target.closest('[data-navigate]');
+                if (navTarget) {
+                    e.preventDefault();
+                    handleNavigate(navTarget.dataset.navigate, navTarget.dataset.category || null);
+                }
+            });
+
+            const toolForm = document.getElementById('tool-form');
+            if (toolForm) {
+                toolForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const endpoint = e.target.dataset.endpoint;
+                    const fileInput = document.getElementById('file-input');
+                    const resultsContainer = document.getElementById('results-container');
+                    const submitBtn = document.getElementById('submit-btn');
+
+                    if (!fileInput.files.length) {
+                        resultsContainer.innerHTML = `<p class="text-red-500">Please select a file.</p>`;
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    for (const file of fileInput.files) {
+                        formData.append('files', file); // Use 'files' to match backend 'upload.array'
+                    }
+
+                    resultsContainer.innerHTML = `<div class="flex justify-center"><div class="loader"></div></div>`;
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await fetch(`${BACKEND_URL}/api/${endpoint}`, {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error);
+
+                        resultsContainer.innerHTML = `
+                            <div class="bg-green-100 text-green-800 p-4 rounded-lg">
+                                <h3 class="font-bold">Success!</h3>
+                                <p>Your file is ready.</p>
+                                <a href="${data.fileUrl}" target="_blank" rel="noopener noreferrer" class="font-bold underline">Download Now</a>
+                            </div>`;
+                    } catch (error) {
+                        resultsContainer.innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+                    } finally {
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            // ... other listeners
+        };
+        
+        const setupScrollAnimations = () => { /* ... */ const animatedSections = document.querySelectorAll('.animated-section'); const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } }); }, { threshold: 0.1 }); animatedSections.forEach(section => observer.observe(section)); };
+        const handleNavigate = (page, pageState = null) => { state.page = page; state.pageState = pageState; if (page === 'all-tools' && pageState) { state.activeCategory = pageState; } else if (page !== 'all-tools') { state.activeCategory = 'All'; state.searchTerm = ''; } window.scrollTo(0, 0); render(); };
+        document.addEventListener('DOMContentLoaded', render);
+
+    </script>
+</body>
+</html>
