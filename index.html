@@ -32,9 +32,9 @@
     <footer id="footer" class="bg-gray-900 text-white"></footer>
 
     <script type="module">
-        const BACKEND_URL = 'http://localhost:5000';
-        // --- ICONS, DATA, STATE, etc. (Same as previous versions) ---
-        const icons = { Video: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>`, Image: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`, Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`, FileText: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`, BarChart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>`, Youtube: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M2.5 17a24.12 24.12 0 0 0 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M11 11.25a1.25 1.25 0 1 0 2.5 0 1.25 1.25 0 1 0-2.5 0Z"/></svg>`, Menu: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`, X: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>`, ArrowLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`, Cpu: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 15v-2"/><path d="M15 9v2"/></svg>`, CheckCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`, AlertTriangle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`, Shield: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, FileCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`, Search: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>`, UploadCloud: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>`,};
+        const BACKEND_URL = 'https://multitools-7rpo.onrender.com';
+        // --- ICONS, DATA, STATE, etc. ---
+        const icons = { Video: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>`, Image: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`, Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`, FileText: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`, BarChart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>`, Youtube: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M2.5 17a24.12 24.12 0 0 0 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M11 11.25a1.25 1.25 0 1 0 2.5 0 1.25 1.25 0 1 0-2.5 0Z"/></svg>`, Menu: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`, X: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>`, ArrowLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`, Cpu: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 15v-2"/><path d="M15 9v2"/></svg>`, CheckCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`, AlertTriangle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`, Shield: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, FileCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`, Search: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>`, UploadCloud: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>`, Mail: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`, Info: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,};
         const toolCategories = { "Video Tools": { icon: icons.Video, tools: [ { id: 'video-cutter', name: 'Video Cutter', description: 'Trim or cut video files.' }, { id: 'video-merger', name: 'Video Merger', description: 'Combine multiple video clips.' }, { id: 'video-to-mp3', name: 'Video to MP3 Converter', description: 'Extract audio from video.' }, { id: 'video-compressor', name: 'Video Compressor', description: 'Reduce video file size.' }, { id: 'screen-recorder', name: 'Online Screen Recorder', description: 'Record your screen online.' }, { id: 'gif-maker', name: 'GIF Maker from Video', description: 'Create GIFs from videos.' }, { id: 'video-watermark-remover', name: 'Video Watermark Remover', description: 'Remove watermarks from videos (AI).' }, { id: 'video-bg-remover', name: 'Video Background Remover', description: 'Remove video backgrounds (AI).' }, { id: 'video-speed-controller', name: 'Video Speed Controller', description: 'Change video playback speed.' }, { id: 'add-subtitles', name: 'Add Subtitles to Video', description: 'Embed subtitles into videos.' }, ]}, "Image Tools": { icon: icons.Image, tools: [ { id: 'image-compressor', name: 'Image Compressor', description: 'Reduce image file size.' }, { id: 'image-resizer', name: 'Image Resizer', description: 'Change image dimensions.' }, { id: 'image-bg-remover', name: 'Background Remover (AI)', description: 'Remove image backgrounds.' }, { id: 'image-to-pdf', name: 'Image to PDF Converter', description: 'Convert images to PDF.' }, { id: 'image-cropper', name: 'Image Cropper', description: 'Crop images online.' }, { id: 'image-converter', name: 'Image Format Converter', description: 'Convert JPG, PNG, etc.' }, { id: 'blur-image', name: 'Blur Image Online', description: 'Apply blur effects to images.' }, { id: 'color-picker', name: 'Image Color Picker', description: 'Pick colors from an image.' }, { id: 'ai-image-enhancer', name: 'AI Image Enhancer', description: 'Improve image quality with AI.' }, { id: 'face-swap', name: 'Face Swap Tool (AI)', description: 'Swap faces in photos.' }, ]}, "Utility Tools": { icon: icons.Settings, tools: [ { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Create custom QR codes.' }, { id: 'password-generator', name: 'Password Generator', description: 'Generate secure passwords.' }, { id: 'random-number-generator', name: 'Random Number Generator', description: 'Generate random numbers.' }, { id: 'ip-checker', name: 'IP Address Checker', description: 'Check your public IP address.' }, { id: 'unit-converter', name: 'Unit Converter', description: 'Convert various units.' }, { id: 'timezone-converter', name: 'Time Zone Converter', description: 'Convert between time zones.' }, { id: 'text-to-speech', name: 'Text to Speech Converter', description: 'Convert text into speech.' }, { id: 'stopwatch-timer', name: 'Online Stopwatch/Timer', description: 'Measure elapsed time.' }, { id: 'notepad-online', name: 'Notepad Online', description: 'A simple online notepad.' }, { id: 'currency-converter', name: 'Currency Converter', description: 'Convert currencies.' }, ]}, "PDF Tools": { icon: icons.FileText, tools: [ { id: 'pdf-merger', name: 'Merge PDF', description: 'Combine multiple PDFs.' }, { id: 'pdf-splitter', name: 'Split PDF', description: 'Split a single PDF into many.' }, { id: 'pdf-compressor', name: 'Compress PDF', description: 'Reduce PDF file size.' }, { id: 'pdf-to-word', name: 'PDF to Word', description: 'Convert PDF to Word docs.' }, { id: 'word-to-pdf', name: 'Word to PDF', description: 'Convert Word docs to PDF.' }, { id: 'pdf-to-jpg', name: 'PDF to JPG', description: 'Convert PDF pages to JPG.' }, { id: 'jpg-to-pdf', name: 'JPG to PDF', description: 'Convert JPG images to PDF.' }, { id: 'unlock-pdf', name: 'Unlock PDF', description: 'Remove PDF passwords.' }, { id: 'protect-pdf', name: 'Protect PDF (Password)', description: 'Add a password to a PDF.' }, { id: 'rotate-pdf', name: 'Rotate PDF', description: 'Rotate pages in a PDF.' }, ]}, "SEO Tools": { icon: icons.BarChart, tools: [ { id: 'meta-tag-generator', name: 'Meta Tag Generator', description: 'Create SEO meta tags.' }, { id: 'keyword-density-checker', name: 'Keyword Density Checker', description: 'Check keyword density.' }, { id: 'backlink-checker', name: 'Backlink Checker', description: 'Check website backlinks.' }, { id: 'plagiarism-checker', name: 'Plagiarism Checker', description: 'Check for duplicate content.' }, { id: 'seo-analyzer', name: 'SEO Analyzer', description: 'Analyze your website\'s SEO.' }, { id: 'robots-txt-generator', name: 'Robots.txt Generator', description: 'Create a robots.txt file.' }, { id: 'xml-sitemap-generator', name: 'XML Sitemap Generator', description: 'Create an XML sitemap.' }, { id: 'domain-authority-checker', name: 'Domain Authority Checker', description: 'Check domain authority.' }, { id: 'serp-preview-tool', name: 'SERP Preview Tool', description: 'Preview Google search results.' }, { id: 'broken-link-checker', name: 'Broken Link Checker', description: 'Find broken links on a site.' }, ]}, "YouTube Tools": { icon: icons.Youtube, tools: [ { id: 'yt-thumbnail-downloader', name: 'YouTube Thumbnail Downloader', description: 'Download video thumbnails.' }, { id: 'yt-tag-extractor', name: 'YouTube Tag Extractor', description: 'Extract tags from a video.' }, { id: 'yt-video-downloader', name: 'YouTube Video Downloader', description: 'Download YouTube videos.' }, { id: 'yt-title-generator', name: 'YouTube Title Generator', description: 'Generate catchy video titles.' }, { id: 'yt-hashtag-generator', name: 'YouTube Hashtag Generator', description: 'Generate relevant hashtags.' }, { id: 'yt-description-generator', name: 'YouTube Description Generator', description: 'Create video descriptions.' }, { id: 'yt-channel-analytics', name: 'YouTube Channel Analytics', description: 'Analyze channel performance.' }, { id: 'yt-keyword-tool', name: 'YouTube Keyword Suggestion', description: 'Find keywords for videos.' }, { id: 'yt-time-stamper', name: 'YouTube Time Stamper', description: 'Create video timestamps.' }, { id: 'yt-to-mp3-converter', name: 'YouTube to MP3 Converter', description: 'Convert videos to MP3.' }, ]} };
         const allTools = Object.values(toolCategories).flatMap(category => category.tools.map(tool => ({ ...tool, category: Object.keys(toolCategories).find(key => toolCategories[key] === category) })));
         let state = { page: 'home', pageState: null, isMenuOpen: false, activeCategory: 'All', searchTerm: '', };
@@ -58,7 +58,7 @@
             </div>`;
 
         const renderFileUploadTemplate = (options) => `
-            <form id="tool-form" class="space-y-6">
+            <form id="tool-form" class="space-y-6" data-endpoint="${options.endpoint}">
                 <div>
                     <label for="file-input" class="block text-sm font-medium text-gray-700 mb-2">Upload File(s)</label>
                     <div id="file-drop-zone" class="file-drop-zone flex justify-center items-center w-full h-32 rounded-lg text-center cursor-pointer bg-gray-50 hover:bg-cyan-50 transition-colors">
@@ -68,7 +68,7 @@
                             <p class="text-xs">${options.acceptedFiles.replace(/,/g, ', ')}</p>
                         </div>
                     </div>
-                    <input type="file" id="file-input" class="hidden" accept="${options.acceptedFiles}" ${options.multiple ? 'multiple' : ''}/>
+                    <input type="file" id="file-input" name="files" class="hidden" accept="${options.acceptedFiles}" ${options.multiple ? 'multiple' : ''}/>
                     <div id="file-list" class="mt-2 text-sm text-gray-600"></div>
                 </div>
                 ${options.extraFields || ''}
@@ -77,14 +77,14 @@
             <div id="results-container" class="mt-8"></div>`;
 
         const renderUrlInputTemplate = (options) => `
-            <form id="tool-form" class="space-y-4">
+            <form id="tool-form" class="space-y-4" data-endpoint="${options.endpoint}">
                 <input type="url" id="url-input" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500" placeholder="${options.placeholder || 'https://example.com'}" required>
                 <button type="submit" id="submit-btn" class="w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">${options.buttonText || 'Submit'}</button>
             </form>
             <div id="results-container" class="mt-8"></div>`;
             
         const renderTextInputTemplate = (options) => `
-            <form id="tool-form" class="space-y-4">
+            <form id="tool-form" class="space-y-4" data-endpoint="${options.endpoint}">
                 <textarea id="text-input" class="w-full p-3 border border-gray-300 rounded-lg h-40 focus:ring-2 focus:ring-cyan-500" placeholder="${options.placeholder || 'Enter text here...'}" required></textarea>
                 ${options.extraFields || ''}
                 <button type="submit" id="submit-btn" class="w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">${options.buttonText || 'Generate'}</button>
@@ -101,76 +101,76 @@
         // --- ALL 60 TOOL RENDER FUNCTIONS ---
         const toolRenderers = {
             // Video Tools
-            'video-cutter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Upload Video to Cut' })),
-            'video-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', multiple: true, buttonText: 'Select Videos to Merge' })),
-            'video-to-mp3': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Convert Video to MP3' })),
-            'video-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Compress Video' })),
-            'screen-recorder': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00', controls: `<div class="flex justify-center gap-4"><button class="bg-green-500 text-white p-3 rounded-full">Start</button><button class="bg-red-500 text-white p-3 rounded-full">Stop</button></div>`})),
-            'gif-maker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Create GIF' })),
-            'video-watermark-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Remove Watermark' })),
-            'video-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Remove Background' })),
-            'video-speed-controller': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Change Speed' })),
-            'add-subtitles': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*,.srt,.vtt', buttonText: 'Add Subtitles', multiple: true })),
+            'video-cutter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-cutter', acceptedFiles: 'video/*', buttonText: 'Upload Video to Cut' })),
+            'video-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-merger', acceptedFiles: 'video/*', multiple: true, buttonText: 'Select Videos to Merge' })),
+            'video-to-mp3': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-to-mp3', acceptedFiles: 'video/*', buttonText: 'Convert Video to MP3' })),
+            'video-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-compressor', acceptedFiles: 'video/*', buttonText: 'Compress Video' })),
+            'screen-recorder': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00', controls: `<div class="flex justify-center gap-4"><button id="start-btn" class="bg-green-500 text-white p-3 rounded-full">Start</button><button id="stop-btn" class="bg-red-500 text-white p-3 rounded-full">Stop</button></div>`})),
+            'gif-maker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'gif-maker', acceptedFiles: 'video/*', buttonText: 'Create GIF' })),
+            'video-watermark-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-watermark-remover', acceptedFiles: 'video/*', buttonText: 'Remove Watermark' })),
+            'video-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-bg-remover', acceptedFiles: 'video/*', buttonText: 'Remove Background' })),
+            'video-speed-controller': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-speed-controller', acceptedFiles: 'video/*', buttonText: 'Change Speed' })),
+            'add-subtitles': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'add-subtitles', acceptedFiles: 'video/*,.srt,.vtt', buttonText: 'Add Subtitles', multiple: true })),
 
             // Image Tools
-            'image-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/jpeg,image/png,image/webp', buttonText: 'Compress Image', extraFields: `<div class="pt-4"><label for="quality" class="block text-sm font-medium text-gray-700">Quality (1-100)</label><input type="range" id="quality" name="quality" min="1" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
-            'image-resizer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Resize Image', extraFields: `<div class="flex gap-4 pt-4"><input type="number" name="width" placeholder="Width (px)" class="w-1/2 p-2 border rounded-lg"><input type="number" name="height" placeholder="Height (px)" class="w-1/2 p-2 border rounded-lg"></div>` })),
-            'image-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Remove Background' })),
-            'image-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', multiple: true, buttonText: 'Convert to PDF' })),
-            'image-cropper': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Crop Image' })),
-            'image-converter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Convert Image', extraFields: `<div class="pt-4"><label for="format" class="block text-sm font-medium text-gray-700">Convert to:</label><select name="format" class="w-full p-2 border rounded-lg mt-1"><option>PNG</option><option>JPG</option><option>WEBP</option><option>GIF</option></select></div>` })),
-            'blur-image': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Blur Image' })),
-            'color-picker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Pick Colors' })),
-            'ai-image-enhancer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Enhance with AI' })),
-            'face-swap': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', multiple: true, buttonText: 'Swap Faces' })),
+            'image-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-compressor', acceptedFiles: 'image/jpeg,image/png,image/webp', buttonText: 'Compress Image', extraFields: `<div class="pt-4"><label for="quality" class="block text-sm font-medium text-gray-700">Quality (1-100)</label><input type="range" id="quality" name="quality" min="1" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
+            'image-resizer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-resizer', acceptedFiles: 'image/*', buttonText: 'Resize Image', extraFields: `<div class="flex gap-4 pt-4"><input type="number" name="width" placeholder="Width (px)" class="w-1/2 p-2 border rounded-lg"><input type="number" name="height" placeholder="Height (px)" class="w-1/2 p-2 border rounded-lg"></div>` })),
+            'image-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-bg-remover', acceptedFiles: 'image/*', buttonText: 'Remove Background' })),
+            'image-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-to-pdf', acceptedFiles: 'image/*', multiple: true, buttonText: 'Convert to PDF' })),
+            'image-cropper': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-cropper', acceptedFiles: 'image/*', buttonText: 'Crop Image' })),
+            'image-converter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-converter', acceptedFiles: 'image/*', buttonText: 'Convert Image', extraFields: `<div class="pt-4"><label for="format" class="block text-sm font-medium text-gray-700">Convert to:</label><select name="format" class="w-full p-2 border rounded-lg mt-1"><option>PNG</option><option>JPG</option><option>WEBP</option><option>GIF</option></select></div>` })),
+            'blur-image': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'blur-image', acceptedFiles: 'image/*', buttonText: 'Blur Image' })),
+            'color-picker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'color-picker', acceptedFiles: 'image/*', buttonText: 'Pick Colors' })),
+            'ai-image-enhancer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'ai-image-enhancer', acceptedFiles: 'image/*', buttonText: 'Enhance with AI' })),
+            'face-swap': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'face-swap', acceptedFiles: 'image/*', multiple: true, buttonText: 'Swap Faces' })),
 
             // Utility Tools
-            'qr-code-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter URL or text to encode', buttonText: 'Generate QR Code' })),
+            'qr-code-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'qr-code-generator', placeholder: 'Enter URL or text to encode', buttonText: 'Generate QR Code' })),
             'password-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Click Generate', controls: `<div class="flex items-center justify-center gap-4"><input type="range" id="length" min="8" max="32" value="16" class="w-64"><span id="length-label">16</span> characters</div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg">Generate</button>` })),
-            'random-number-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '0', controls: `<div class="flex gap-4 justify-center"><input type="number" placeholder="Min" value="1" class="w-1/3 p-2 border rounded-lg"><input type="number" placeholder="Max" value="100" class="w-1/3 p-2 border rounded-lg"></div><button class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Generate</button>` })),
+            'random-number-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '0', controls: `<div class="flex gap-4 justify-center"><input id="min-num" type="number" placeholder="Min" value="1" class="w-1/3 p-2 border rounded-lg"><input id="max-num" type="number" placeholder="Max" value="100" class="w-1/3 p-2 border rounded-lg"></div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Generate</button>` })),
             'ip-checker': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Fetching your IP...', controls: `` })),
             'unit-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" class="p-2 border rounded-lg" placeholder="Value"><select class="p-2 border rounded-lg"><option>Kilometers</option><option>Miles</option></select><select class="p-2 border rounded-lg"><option>Miles</option><option>Kilometers</option></select></div>`),
             'timezone-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="datetime-local" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>UTC</option><option>Local</option></select><div class="p-2 bg-gray-100 rounded-lg">Converted Time</div></div>`),
-            'text-to-speech': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Type text to speak...', buttonText: 'Speak' })),
-            'stopwatch-timer': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00.000', controls: `<div class="flex justify-center gap-4"><button class="bg-green-500 text-white p-3 rounded-full">Start</button><button class="bg-red-500 text-white p-3 rounded-full">Stop</button><button class="bg-gray-500 text-white p-3 rounded-full">Reset</button></div>`})),
+            'text-to-speech': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'text-to-speech', placeholder: 'Type text to speak...', buttonText: 'Speak' })),
+            'stopwatch-timer': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00.000', controls: `<div class="flex justify-center gap-4"><button id="start-btn" class="bg-green-500 text-white p-3 rounded-full">Start</button><button id="stop-btn" class="bg-red-500 text-white p-3 rounded-full">Stop</button><button id="reset-btn" class="bg-gray-500 text-white p-3 rounded-full">Reset</button></div>`})),
             'notepad-online': (tool) => renderPageWrapper(tool, `<textarea class="w-full h-80 p-4 border rounded-lg" placeholder="Start typing..."></textarea>`),
             'currency-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" value="1" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>USD</option><option>EUR</option></select><select class="p-2 border rounded-lg"><option>EUR</option><option>USD</option></select></div>`),
 
             // PDF Tools
-            'pdf-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', multiple: true, buttonText: 'Merge PDFs' })),
-            'pdf-splitter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Split PDF' })),
-            'pdf-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Compress PDF' })),
-            'pdf-to-word': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Convert to Word' })),
-            'word-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.doc,.docx', buttonText: 'Convert to PDF' })),
-            'pdf-to-jpg': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Convert to JPG' })),
-            'jpg-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/jpeg', multiple: true, buttonText: 'Convert to PDF' })),
-            'unlock-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Unlock PDF' })),
-            'protect-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Protect PDF', extraFields: `<div class="pt-4"><input type="password" name="password" placeholder="Enter Password" class="w-full p-2 border rounded-lg"></div>` })),
-            'rotate-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Rotate PDF' })),
+            'pdf-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-merger', acceptedFiles: '.pdf', multiple: true, buttonText: 'Merge PDFs' })),
+            'pdf-splitter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-splitter', acceptedFiles: '.pdf', buttonText: 'Split PDF' })),
+            'pdf-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-compressor', acceptedFiles: '.pdf', buttonText: 'Compress PDF' })),
+            'pdf-to-word': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-to-word', acceptedFiles: '.pdf', buttonText: 'Convert to Word' })),
+            'word-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'word-to-pdf', acceptedFiles: '.doc,.docx', buttonText: 'Convert to PDF' })),
+            'pdf-to-jpg': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-to-jpg', acceptedFiles: '.pdf', buttonText: 'Convert to JPG' })),
+            'jpg-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'jpg-to-pdf', acceptedFiles: 'image/jpeg', multiple: true, buttonText: 'Convert to PDF' })),
+            'unlock-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'unlock-pdf', acceptedFiles: '.pdf', buttonText: 'Unlock PDF' })),
+            'protect-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'protect-pdf', acceptedFiles: '.pdf', buttonText: 'Protect PDF', extraFields: `<div class="pt-4"><input type="password" name="password" placeholder="Enter Password" class="w-full p-2 border rounded-lg"></div>` })),
+            'rotate-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'rotate-pdf', acceptedFiles: '.pdf', buttonText: 'Rotate PDF' })),
 
             // SEO Tools
-            'meta-tag-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Generate Meta Tags' })),
-            'keyword-density-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Paste your article text here...', buttonText: 'Check Density' })),
-            'backlink-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check Backlinks' })),
-            'plagiarism-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Paste text to check for plagiarism...', buttonText: 'Check Plagiarism' })),
-            'seo-analyzer': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Analyze SEO' })),
-            'robots-txt-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'User-agent: *\\nDisallow: /private', buttonText: 'Generate robots.txt' })),
-            'xml-sitemap-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Generate Sitemap' })),
-            'domain-authority-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check DA' })),
-            'serp-preview-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter your title, URL, and description', buttonText: 'Preview SERP' })),
-            'broken-link-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check Links' })),
+            'meta-tag-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'meta-tag-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Meta Tags' })),
+            'keyword-density-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'keyword-density-checker', placeholder: 'Paste your article text here...', buttonText: 'Check Density' })),
+            'backlink-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'backlink-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check Backlinks' })),
+            'plagiarism-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'plagiarism-checker', placeholder: 'Paste text to check for plagiarism...', buttonText: 'Check Plagiarism' })),
+            'seo-analyzer': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'seo-analyzer', placeholder: 'https://yourwebsite.com', buttonText: 'Analyze SEO' })),
+            'robots-txt-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'robots-txt-generator', placeholder: 'User-agent: *\\nDisallow: /private', buttonText: 'Generate robots.txt' })),
+            'xml-sitemap-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'xml-sitemap-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Sitemap' })),
+            'domain-authority-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'domain-authority-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check DA' })),
+            'serp-preview-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'serp-preview-tool', placeholder: 'Enter your title, URL, and description', buttonText: 'Preview SERP' })),
+            'broken-link-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'broken-link-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check Links' })),
 
             // YouTube Tools
-            'yt-thumbnail-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Thumbnails' })),
-            'yt-tag-extractor': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Extract Tags' })),
-            'yt-video-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Download Video' })),
-            'yt-title-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a keyword (e.g., "tech review")', buttonText: 'Generate Titles' })),
-            'yt-hashtag-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a topic (e.g., "unboxing")', buttonText: 'Generate Hashtags' })),
-            'yt-description-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter video title and keywords...', buttonText: 'Generate Description' })),
-            'yt-channel-analytics': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'Enter YouTube Channel URL', buttonText: 'Analyze Channel' })),
-            'yt-keyword-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a seed keyword...', buttonText: 'Find Keywords' })),
-            'yt-time-stamper': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: '0:00 Intro\\n1:23 Topic 1\\n3:45 Conclusion', buttonText: 'Format Timestamps' })),
-            'yt-to-mp3-converter': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Convert to MP3' })),
+            'yt-thumbnail-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-thumbnail-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Thumbnails' })),
+            'yt-tag-extractor': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-tag-extractor', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Extract Tags' })),
+            'yt-video-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-video-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Download Video' })),
+            'yt-title-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-title-generator', placeholder: 'Enter a keyword (e.g., "tech review")', buttonText: 'Generate Titles' })),
+            'yt-hashtag-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-hashtag-generator', placeholder: 'Enter a topic (e.g., "unboxing")', buttonText: 'Generate Hashtags' })),
+            'yt-description-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-description-generator', placeholder: 'Enter video title and keywords...', buttonText: 'Generate Description' })),
+            'yt-channel-analytics': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-channel-analytics', placeholder: 'Enter YouTube Channel URL', buttonText: 'Analyze Channel' })),
+            'yt-keyword-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-keyword-tool', placeholder: 'Enter a seed keyword...', buttonText: 'Find Keywords' })),
+            'yt-time-stamper': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-time-stamper', placeholder: '0:00 Intro\\n1:23 Topic 1\\n3:45 Conclusion', buttonText: 'Format Timestamps' })),
+            'yt-to-mp3-converter': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-to-mp3-converter', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Convert to MP3' })),
         };
         
         // --- MAIN RENDER FUNCTION ---
@@ -344,20 +344,18 @@
                 if (renderFn) {
                     pageContent = renderFn(tool);
                 } else {
-                    // Default "Under Construction" for tools without a specific design
                     pageContent = renderPageWrapper(tool, `<div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">This tool's UI is under construction.</div>`);
                 }
             } else {
-                // Render static pages or home
                 switch (state.page) {
                     case 'home': pageContent = renderHomePage(); break;
                     case 'all-tools': pageContent = renderAllToolsPage(); break;
-                    case 'about': pageContent = renderStaticPage("About Us", icons.Cpu, `<p>Welcome to Bharat Bhushan, your all-in-one destination for powerful and easy-to-use online utilities. Our mission is to simplify complex digital tasks, making them accessible to everyone, everywhere, for free.</p>`); break;
-                    case 'contact': pageContent = renderStaticPage("Contact Us", icons.FileText, `<p>We'd love to hear from you! Whether you have a question, a suggestion for a new tool, or just want to say hello, please don't hesitate to reach out.</p>`); break;
-                    case 'how-to-use': pageContent = renderStaticPage("How to Use", icons.CheckCircle, `<p>Using our tools is designed to be as simple and intuitive as possible. Here’s a quick guide to get you started: Select a tool, provide your input, and process/download.</p>`); break;
-                    case 'disclaimer': pageContent = renderStaticPage("Disclaimer", icons.AlertTriangle, `<h3>Service "As Is"</h3><p>All tools and services provided on this website are on an "as is" and "as available" basis. We make no warranties, expressed or implied, regarding the operation of our services.</p>`); break;
-                    case 'privacy': pageContent = renderStaticPage("Privacy Policy", icons.Shield, `<h3>Our Commitment</h3><p>Your privacy is critically important to us. We do not store or view any files you upload. All files are processed in real-time and are permanently deleted from our servers automatically after a short period.</p>`); break;
-                    case 'terms': pageContent = renderStaticPage("Terms of Service", icons.FileCheck, `<h3>1. Acceptance of Terms</h3><p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>`); break;
+                    case 'about': pageContent = renderStaticPage("About Us", icons.Info, `<p>Welcome to Bharat Bhushan, your all-in-one destination for powerful and easy-to-use online utilities. Our mission is to simplify complex digital tasks, making them accessible to everyone, everywhere, for free.</p><p>Born from a passion for efficiency and clean design, this platform was built to provide high-quality tools without the clutter of ads or the hassle of sign-ups. We believe in the power of the open web and are committed to creating a reliable, user-friendly experience that respects your privacy.</p>`); break;
+                    case 'contact': pageContent = renderStaticPage("Contact Us", icons.Mail, `<p>We'd love to hear from you! Whether you have a question, a suggestion for a new tool, or just want to say hello, please don't hesitate to reach out via our contact form below.</p><form class="mt-6 not-prose space-y-4"><input type="text" placeholder="Your Name" class="w-full p-3 border rounded-lg"><input type="email" placeholder="Your Email" class="w-full p-3 border rounded-lg"><textarea placeholder="Your Message" rows="5" class="w-full p-3 border rounded-lg"></textarea><button type="submit" class="w-full bg-cyan-500 text-white font-bold py-3 px-4 rounded-lg">Send Message</button></form>`); break;
+                    case 'how-to-use': pageContent = renderStaticPage("How to Use", icons.CheckCircle, `<p>Using our tools is designed to be as simple and intuitive as possible. Here’s a quick guide to get you started:</p><ul class="space-y-4 mt-6"><li><strong class="block">1. Select a Tool:</strong> From the homepage or the "All Tools" page, browse our categories and click on the tool that fits your needs.</li><li><strong class="block">2. Provide Input:</strong> Once on the tool's page, you'll find simple input fields. This might be uploading a file, pasting a URL, or entering text.</li><li><strong class="block">3. Process & Download:</strong> Click the main action button. Our system will process your request instantly, and your results will appear on the screen, ready for you to use or download.</li></ul>`); break;
+                    case 'disclaimer': pageContent = renderStaticPage("Disclaimer", icons.AlertTriangle, `<h3>Service "As Is"</h3><p>All tools and services provided on this website are on an "as is" and "as available" basis. We make no warranties, expressed or implied, regarding the operation of our services or the information, content, or materials included. Your use of the service is at your sole risk.</p><h3>Limitation of Liability</h3><p>In no event shall Bharat Bhushan, nor its directors, employees, or partners, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the service.</p>`); break;
+                    case 'privacy': pageContent = renderStaticPage("Privacy Policy", icons.Shield, `<h3>Our Commitment</h3><p>Your privacy is critically important to us. We have a few fundamental principles:</p><ul><li>We are thoughtful about the personal information we ask you to provide and the personal information that we collect about you through the operation of our services.</li><li>We store personal information for only as long as we have a reason to keep it.</li><li>We aim for full transparency on how we gather, use, and share your personal information.</li></ul><h3>File Handling</h3><p>We do not store or view any files you upload to our servers. All files are processed in real-time and are permanently deleted from our servers automatically after a short period (typically 1 hour) to ensure your data remains private.</p>`); break;
+                    case 'terms': pageContent = renderStaticPage("Terms and Conditions", icons.FileCheck, `<h3>1. Acceptance of Terms</h3><p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p><h3>2. Use of Service</h3><p>You agree to use our services for legitimate purposes only. You are prohibited from using our tools to process any material that is illegal, defamatory, or infringes on the copyright of others. Misuse of the service may result in a permanent ban.</p><h3>3. Modification of Service</h3><p>We reserve the right to modify or discontinue the service with or without notice to you. We will not be liable to you or any third party should we exercise our right to modify or discontinue the Service.</p>`); break;
                     default: pageContent = renderHomePage();
                 }
             }
@@ -390,52 +388,79 @@
             });
             
             const menuToggle = document.getElementById('menu-toggle');
-            if (menuToggle) {
-                menuToggle.onclick = () => {
-                    state.isMenuOpen = !state.isMenuOpen;
-                    render();
-                };
-            }
+            if (menuToggle) { menuToggle.onclick = () => { state.isMenuOpen = !state.isMenuOpen; render(); }; }
 
             const categoryFilter = document.getElementById('category-filter');
-            if (categoryFilter) {
-                categoryFilter.onclick = e => {
-                    const categoryButton = e.target.closest('[data-category]');
-                    if (categoryButton) {
-                        state.activeCategory = categoryButton.dataset.category;
-                        render();
-                        document.getElementById('tool-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                };
-            }
+            if (categoryFilter) { categoryFilter.onclick = e => { const btn = e.target.closest('[data-category]'); if (btn) { state.activeCategory = btn.dataset.category; render(); document.getElementById('tool-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }; }
 
             const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.oninput = e => {
-                    state.searchTerm = e.target.value;
-                    render();
-                };
-            }
+            if (searchInput) { searchInput.oninput = e => { state.searchTerm = e.target.value; render(); }; }
 
-            // Specific Tool Logic
+            // Attach form submission logic
+            const toolForm = document.getElementById('tool-form');
+            if (toolForm) {
+                toolForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const endpoint = e.target.dataset.endpoint;
+                    const resultsContainer = document.getElementById('results-container');
+                    const submitBtn = document.getElementById('submit-btn');
+                    if (!endpoint) return;
+
+                    let body;
+                    let headers = {};
+
+                    if (e.target.querySelector('input[type="file"]')) {
+                        body = new FormData(e.target);
+                    } else if (e.target.querySelector('input[type="url"]')) {
+                        body = JSON.stringify({ url: e.target.querySelector('#url-input').value });
+                        headers['Content-Type'] = 'application/json';
+                    } else if (e.target.querySelector('textarea')) {
+                        body = JSON.stringify({ text: e.target.querySelector('#text-input').value });
+                        headers['Content-Type'] = 'application/json';
+                    }
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `<div class="loader mx-auto"></div>`;
+                    resultsContainer.innerHTML = '';
+
+                    try {
+                        const response = await fetch(`${BACKEND_URL}/api/${endpoint}`, { method: 'POST', headers, body });
+                        const data = await response.json();
+                        if (!response.ok) throw new Error(data.error || 'An unknown error occurred.');
+                        
+                        let resultHTML = `<div class="bg-green-100 text-green-800 p-4 rounded-lg"><h3 class="font-bold">✅ Success!</h3>`;
+                        if (data.fileUrl) resultHTML += `<p>Your file is ready. <a href="${BACKEND_URL}${data.fileUrl}" target="_blank" rel="noopener noreferrer" class="font-bold underline">Download Now</a></p>`;
+                        if (data.thumbnails) resultHTML += `<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">${Object.entries(data.thumbnails).map(([key, url]) => `<a href="${url}" target="_blank"><img src="${url}" class="rounded"/></a>`).join('')}</div>`;
+                        if (data.generatedTags) resultHTML += `<pre class="bg-gray-200 p-2 rounded mt-2 text-sm whitespace-pre-wrap">${data.generatedTags}</pre>`;
+                        if (data.text) resultHTML += `<p class="mt-2">${data.text}</p>`;
+                        resultHTML += `</div>`;
+                        resultsContainer.innerHTML = resultHTML;
+
+                    } catch (error) {
+                        resultsContainer.innerHTML = `<p class="text-red-500 p-4 bg-red-100 rounded-lg">Error: ${error.message}</p>`;
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = e.target.querySelector('button[type="submit"]').textContent;
+                    }
+                });
+            }
+            
+            // Client-side tool logic
             if (state.page === 'password-generator') {
                 const output = document.getElementById('interactive-output');
                 const lengthSlider = document.getElementById('length');
                 const lengthLabel = document.getElementById('length-label');
                 const generateBtn = document.getElementById('generate-btn');
-
                 const generatePassword = () => {
                     const length = lengthSlider.value;
                     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
                     let password = "";
-                    for (let i = 0, n = charset.length; i < length; ++i) {
-                        password += charset.charAt(Math.floor(Math.random() * n));
-                    }
+                    for (let i = 0, n = charset.length; i < length; ++i) { password += charset.charAt(Math.floor(Math.random() * n)); }
                     output.textContent = password;
                 };
                 lengthSlider.oninput = () => { lengthLabel.textContent = lengthSlider.value; };
                 generateBtn.onclick = generatePassword;
-                generatePassword(); // Initial password
+                generatePassword();
             }
             
             // File Drop Zone Logic
@@ -446,12 +471,7 @@
                 dropZone.onclick = () => fileInput.click();
                 dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('dragover'); };
                 dropZone.ondragleave = () => dropZone.classList.remove('dragover');
-                dropZone.ondrop = (e) => {
-                    e.preventDefault();
-                    dropZone.classList.remove('dragover');
-                    fileInput.files = e.dataTransfer.files;
-                    updateFileList();
-                };
+                dropZone.ondrop = (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); fileInput.files = e.dataTransfer.files; updateFileList(); };
                 fileInput.onchange = updateFileList;
             }
             function updateFileList() {
@@ -460,20 +480,7 @@
             }
         };
         
-        // --- ANIMATIONS ---
-        const setupScrollAnimations = () => {
-            const animatedSections = document.querySelectorAll('.animated-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            animatedSections.forEach(section => observer.observe(section));
-        };
-
-        // --- INITIALIZATION ---
+        const setupScrollAnimations = () => { const animatedSections = document.querySelectorAll('.animated-section'); const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } }); }, { threshold: 0.1 }); animatedSections.forEach(section => observer.observe(section)); };
         document.addEventListener('DOMContentLoaded', render);
 
     </script>
