@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Bhushan - Best Tool Site Ever!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animated-section { transition: opacity 1s ease-out, transform 1s ease-out; opacity: 0; transform: translateY(32px); }
+        .animated-section.is-visible { opacity: 1; transform: translateY(0); }
+        .category-card-glow { box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.05), 0 4px 6px -4px rgba(6, 182, 212, 0.1); }
+        .category-card-glow:hover { box-shadow: 0 25px 50px -12px rgba(6, 182, 212, 0.25); }
+        .tool-card-glow { box-shadow: 0 4px 6px -1px rgba(6, 182, 212, 0.05), 0 2px 4px -2px rgba(6, 182, 212, 0.1); }
+        .tool-card-glow:hover { box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.1), 0 4px 6px -2px rgba(6, 182, 212, 0.1); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #06b6d4; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* File input style */
+        .file-drop-zone { border: 2px dashed #cbd5e1; }
+        .file-drop-zone.dragover { border-color: #06b6d4; background-color: #ecfeff; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans text-gray-900 bg-gray-50">
+
+    <header id="header" class="absolute top-0 left-0 right-0 z-40 bg-transparent"></header>
+    <main id="main-content" class="flex-grow"></main>
+    <footer id="footer" class="bg-gray-900 text-white"></footer>
+
+    <script type="module">
+        const BACKEND_URL = 'http://localhost:5000';
+        // --- ICONS, DATA, STATE, etc. (Same as previous versions) ---
+        const icons = { Video: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>`, Image: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`, Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`, FileText: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`, BarChart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>`, Youtube: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M2.5 17a24.12 24.12 0 0 0 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M11 11.25a1.25 1.25 0 1 0 2.5 0 1.25 1.25 0 1 0-2.5 0Z"/></svg>`, Menu: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`, X: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>`, ArrowLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`, Cpu: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 15v-2"/><path d="M15 9v2"/></svg>`, CheckCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`, AlertTriangle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`, Shield: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, FileCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`, Search: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>`, UploadCloud: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>`,};
+        const toolCategories = { "Video Tools": { icon: icons.Video, tools: [ { id: 'video-cutter', name: 'Video Cutter', description: 'Trim or cut video files.' }, { id: 'video-merger', name: 'Video Merger', description: 'Combine multiple video clips.' }, { id: 'video-to-mp3', name: 'Video to MP3 Converter', description: 'Extract audio from video.' }, { id: 'video-compressor', name: 'Video Compressor', description: 'Reduce video file size.' }, { id: 'screen-recorder', name: 'Online Screen Recorder', description: 'Record your screen online.' }, { id: 'gif-maker', name: 'GIF Maker from Video', description: 'Create GIFs from videos.' }, { id: 'video-watermark-remover', name: 'Video Watermark Remover', description: 'Remove watermarks from videos (AI).' }, { id: 'video-bg-remover', name: 'Video Background Remover', description: 'Remove video backgrounds (AI).' }, { id: 'video-speed-controller', name: 'Video Speed Controller', description: 'Change video playback speed.' }, { id: 'add-subtitles', name: 'Add Subtitles to Video', description: 'Embed subtitles into videos.' }, ]}, "Image Tools": { icon: icons.Image, tools: [ { id: 'image-compressor', name: 'Image Compressor', description: 'Reduce image file size.' }, { id: 'image-resizer', name: 'Image Resizer', description: 'Change image dimensions.' }, { id: 'image-bg-remover', name: 'Background Remover (AI)', description: 'Remove image backgrounds.' }, { id: 'image-to-pdf', name: 'Image to PDF Converter', description: 'Convert images to PDF.' }, { id: 'image-cropper', name: 'Image Cropper', description: 'Crop images online.' }, { id: 'image-converter', name: 'Image Format Converter', description: 'Convert JPG, PNG, etc.' }, { id: 'blur-image', name: 'Blur Image Online', description: 'Apply blur effects to images.' }, { id: 'color-picker', name: 'Image Color Picker', description: 'Pick colors from an image.' }, { id: 'ai-image-enhancer', name: 'AI Image Enhancer', description: 'Improve image quality with AI.' }, { id: 'face-swap', name: 'Face Swap Tool (AI)', description: 'Swap faces in photos.' }, ]}, "Utility Tools": { icon: icons.Settings, tools: [ { id: 'qr-code-generator', name: 'QR Code Generator', description: 'Create custom QR codes.' }, { id: 'password-generator', name: 'Password Generator', description: 'Generate secure passwords.' }, { id: 'random-number-generator', name: 'Random Number Generator', description: 'Generate random numbers.' }, { id: 'ip-checker', name: 'IP Address Checker', description: 'Check your public IP address.' }, { id: 'unit-converter', name: 'Unit Converter', description: 'Convert various units.' }, { id: 'timezone-converter', name: 'Time Zone Converter', description: 'Convert between time zones.' }, { id: 'text-to-speech', name: 'Text to Speech Converter', description: 'Convert text into speech.' }, { id: 'stopwatch-timer', name: 'Online Stopwatch/Timer', description: 'Measure elapsed time.' }, { id: 'notepad-online', name: 'Notepad Online', description: 'A simple online notepad.' }, { id: 'currency-converter', name: 'Currency Converter', description: 'Convert currencies.' }, ]}, "PDF Tools": { icon: icons.FileText, tools: [ { id: 'pdf-merger', name: 'Merge PDF', description: 'Combine multiple PDFs.' }, { id: 'pdf-splitter', name: 'Split PDF', description: 'Split a single PDF into many.' }, { id: 'pdf-compressor', name: 'Compress PDF', description: 'Reduce PDF file size.' }, { id: 'pdf-to-word', name: 'PDF to Word', description: 'Convert PDF to Word docs.' }, { id: 'word-to-pdf', name: 'Word to PDF', description: 'Convert Word docs to PDF.' }, { id: 'pdf-to-jpg', name: 'PDF to JPG', description: 'Convert PDF pages to JPG.' }, { id: 'jpg-to-pdf', name: 'JPG to PDF', description: 'Convert JPG images to PDF.' }, { id: 'unlock-pdf', name: 'Unlock PDF', description: 'Remove PDF passwords.' }, { id: 'protect-pdf', name: 'Protect PDF (Password)', description: 'Add a password to a PDF.' }, { id: 'rotate-pdf', name: 'Rotate PDF', description: 'Rotate pages in a PDF.' }, ]}, "SEO Tools": { icon: icons.BarChart, tools: [ { id: 'meta-tag-generator', name: 'Meta Tag Generator', description: 'Create SEO meta tags.' }, { id: 'keyword-density-checker', name: 'Keyword Density Checker', description: 'Check keyword density.' }, { id: 'backlink-checker', name: 'Backlink Checker', description: 'Check website backlinks.' }, { id: 'plagiarism-checker', name: 'Plagiarism Checker', description: 'Check for duplicate content.' }, { id: 'seo-analyzer', name: 'SEO Analyzer', description: 'Analyze your website\'s SEO.' }, { id: 'robots-txt-generator', name: 'Robots.txt Generator', description: 'Create a robots.txt file.' }, { id: 'xml-sitemap-generator', name: 'XML Sitemap Generator', description: 'Create an XML sitemap.' }, { id: 'domain-authority-checker', name: 'Domain Authority Checker', description: 'Check domain authority.' }, { id: 'serp-preview-tool', name: 'SERP Preview Tool', description: 'Preview Google search results.' }, { id: 'broken-link-checker', name: 'Broken Link Checker', description: 'Find broken links on a site.' }, ]}, "YouTube Tools": { icon: icons.Youtube, tools: [ { id: 'yt-thumbnail-downloader', name: 'YouTube Thumbnail Downloader', description: 'Download video thumbnails.' }, { id: 'yt-tag-extractor', name: 'YouTube Tag Extractor', description: 'Extract tags from a video.' }, { id: 'yt-video-downloader', name: 'YouTube Video Downloader', description: 'Download YouTube videos.' }, { id: 'yt-title-generator', name: 'YouTube Title Generator', description: 'Generate catchy video titles.' }, { id: 'yt-hashtag-generator', name: 'YouTube Hashtag Generator', description: 'Generate relevant hashtags.' }, { id: 'yt-description-generator', name: 'YouTube Description Generator', description: 'Create video descriptions.' }, { id: 'yt-channel-analytics', name: 'YouTube Channel Analytics', description: 'Analyze channel performance.' }, { id: 'yt-keyword-tool', name: 'YouTube Keyword Suggestion', description: 'Find keywords for videos.' }, { id: 'yt-time-stamper', name: 'YouTube Time Stamper', description: 'Create video timestamps.' }, { id: 'yt-to-mp3-converter', name: 'YouTube to MP3 Converter', description: 'Convert videos to MP3.' }, ]} };
+        const allTools = Object.values(toolCategories).flatMap(category => category.tools.map(tool => ({ ...tool, category: Object.keys(toolCategories).find(key => toolCategories[key] === category) })));
+        let state = { page: 'home', pageState: null, isMenuOpen: false, activeCategory: 'All', searchTerm: '', };
+        const mainContent = document.getElementById('main-content');
+        const headerEl = document.getElementById('header');
+        const footerEl = document.getElementById('footer');
+
+        // --- TEMPLATE RENDER FUNCTIONS ---
+        const renderPageWrapper = (tool, content) => `
+            <div class="bg-gray-50 pt-24 animate-fade-in">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-10">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-4xl mx-auto">
+                        <button data-navigate="all-tools" class="flex items-center gap-2 text-gray-600 hover:text-cyan-600 mb-6 transition-colors duration-300">${icons.ArrowLeft} Back to All Tools</button>
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-cyan-500">${toolCategories[tool.category]?.icon || icons.Settings}</div>
+                            <div><h1 class="text-3xl font-bold text-gray-800">${tool.name}</h1><p class="text-gray-500">${tool.description}</p></div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-6">${content}</div>
+                    </div>
+                </div>
+            </div>`;
+
+        const renderFileUploadTemplate = (options) => `
+            <form id="tool-form" class="space-y-6">
+                <div>
+                    <label for="file-input" class="block text-sm font-medium text-gray-700 mb-2">Upload File(s)</label>
+                    <div id="file-drop-zone" class="file-drop-zone flex justify-center items-center w-full h-32 rounded-lg text-center cursor-pointer bg-gray-50 hover:bg-cyan-50 transition-colors">
+                        <div class="text-gray-500">
+                            ${icons.UploadCloud}
+                            <p class="mt-2"><span class="font-semibold text-cyan-600">Click to upload</span> or drag and drop</p>
+                            <p class="text-xs">${options.acceptedFiles.replace(/,/g, ', ')}</p>
+                        </div>
+                    </div>
+                    <input type="file" id="file-input" class="hidden" accept="${options.acceptedFiles}" ${options.multiple ? 'multiple' : ''}/>
+                    <div id="file-list" class="mt-2 text-sm text-gray-600"></div>
+                </div>
+                ${options.extraFields || ''}
+                <button type="submit" id="submit-btn" class="w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">${options.buttonText || 'Process'}</button>
+            </form>
+            <div id="results-container" class="mt-8"></div>`;
+
+        const renderUrlInputTemplate = (options) => `
+            <form id="tool-form" class="space-y-4">
+                <input type="url" id="url-input" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500" placeholder="${options.placeholder || 'https://example.com'}" required>
+                <button type="submit" id="submit-btn" class="w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">${options.buttonText || 'Submit'}</button>
+            </form>
+            <div id="results-container" class="mt-8"></div>`;
+            
+        const renderTextInputTemplate = (options) => `
+            <form id="tool-form" class="space-y-4">
+                <textarea id="text-input" class="w-full p-3 border border-gray-300 rounded-lg h-40 focus:ring-2 focus:ring-cyan-500" placeholder="${options.placeholder || 'Enter text here...'}" required></textarea>
+                ${options.extraFields || ''}
+                <button type="submit" id="submit-btn" class="w-full bg-cyan-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-cyan-600 transition-all duration-300">${options.buttonText || 'Generate'}</button>
+            </form>
+            <div id="results-container" class="mt-8"></div>`;
+
+        const renderInteractiveTemplate = (options) => `
+            <div class="text-center space-y-4">
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-2xl" id="interactive-output">${options.initialValue}</div>
+                ${options.controls}
+            </div>
+        `;
+
+        // --- ALL 60 TOOL RENDER FUNCTIONS ---
+        const toolRenderers = {
+            // Video Tools
+            'video-cutter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Upload Video to Cut' })),
+            'video-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', multiple: true, buttonText: 'Select Videos to Merge' })),
+            'video-to-mp3': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Convert Video to MP3' })),
+            'video-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Compress Video' })),
+            'screen-recorder': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00', controls: `<div class="flex justify-center gap-4"><button class="bg-green-500 text-white p-3 rounded-full">Start</button><button class="bg-red-500 text-white p-3 rounded-full">Stop</button></div>`})),
+            'gif-maker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Create GIF' })),
+            'video-watermark-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Remove Watermark' })),
+            'video-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Remove Background' })),
+            'video-speed-controller': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*', buttonText: 'Change Speed' })),
+            'add-subtitles': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'video/*,.srt,.vtt', buttonText: 'Add Subtitles', multiple: true })),
+
+            // Image Tools
+            'image-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/jpeg,image/png,image/webp', buttonText: 'Compress Image', extraFields: `<div class="pt-4"><label for="quality" class="block text-sm font-medium text-gray-700">Quality (1-100)</label><input type="range" id="quality" name="quality" min="1" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
+            'image-resizer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Resize Image', extraFields: `<div class="flex gap-4 pt-4"><input type="number" name="width" placeholder="Width (px)" class="w-1/2 p-2 border rounded-lg"><input type="number" name="height" placeholder="Height (px)" class="w-1/2 p-2 border rounded-lg"></div>` })),
+            'image-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Remove Background' })),
+            'image-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', multiple: true, buttonText: 'Convert to PDF' })),
+            'image-cropper': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Crop Image' })),
+            'image-converter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Convert Image', extraFields: `<div class="pt-4"><label for="format" class="block text-sm font-medium text-gray-700">Convert to:</label><select name="format" class="w-full p-2 border rounded-lg mt-1"><option>PNG</option><option>JPG</option><option>WEBP</option><option>GIF</option></select></div>` })),
+            'blur-image': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Blur Image' })),
+            'color-picker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Pick Colors' })),
+            'ai-image-enhancer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', buttonText: 'Enhance with AI' })),
+            'face-swap': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/*', multiple: true, buttonText: 'Swap Faces' })),
+
+            // Utility Tools
+            'qr-code-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter URL or text to encode', buttonText: 'Generate QR Code' })),
+            'password-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Click Generate', controls: `<div class="flex items-center justify-center gap-4"><input type="range" id="length" min="8" max="32" value="16" class="w-64"><span id="length-label">16</span> characters</div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg">Generate</button>` })),
+            'random-number-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '0', controls: `<div class="flex gap-4 justify-center"><input type="number" placeholder="Min" value="1" class="w-1/3 p-2 border rounded-lg"><input type="number" placeholder="Max" value="100" class="w-1/3 p-2 border rounded-lg"></div><button class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Generate</button>` })),
+            'ip-checker': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Fetching your IP...', controls: `` })),
+            'unit-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" class="p-2 border rounded-lg" placeholder="Value"><select class="p-2 border rounded-lg"><option>Kilometers</option><option>Miles</option></select><select class="p-2 border rounded-lg"><option>Miles</option><option>Kilometers</option></select></div>`),
+            'timezone-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="datetime-local" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>UTC</option><option>Local</option></select><div class="p-2 bg-gray-100 rounded-lg">Converted Time</div></div>`),
+            'text-to-speech': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Type text to speak...', buttonText: 'Speak' })),
+            'stopwatch-timer': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00.000', controls: `<div class="flex justify-center gap-4"><button class="bg-green-500 text-white p-3 rounded-full">Start</button><button class="bg-red-500 text-white p-3 rounded-full">Stop</button><button class="bg-gray-500 text-white p-3 rounded-full">Reset</button></div>`})),
+            'notepad-online': (tool) => renderPageWrapper(tool, `<textarea class="w-full h-80 p-4 border rounded-lg" placeholder="Start typing..."></textarea>`),
+            'currency-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" value="1" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>USD</option><option>EUR</option></select><select class="p-2 border rounded-lg"><option>EUR</option><option>USD</option></select></div>`),
+
+            // PDF Tools
+            'pdf-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', multiple: true, buttonText: 'Merge PDFs' })),
+            'pdf-splitter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Split PDF' })),
+            'pdf-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Compress PDF' })),
+            'pdf-to-word': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Convert to Word' })),
+            'word-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.doc,.docx', buttonText: 'Convert to PDF' })),
+            'pdf-to-jpg': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Convert to JPG' })),
+            'jpg-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: 'image/jpeg', multiple: true, buttonText: 'Convert to PDF' })),
+            'unlock-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Unlock PDF' })),
+            'protect-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Protect PDF', extraFields: `<div class="pt-4"><input type="password" name="password" placeholder="Enter Password" class="w-full p-2 border rounded-lg"></div>` })),
+            'rotate-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ acceptedFiles: '.pdf', buttonText: 'Rotate PDF' })),
+
+            // SEO Tools
+            'meta-tag-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Generate Meta Tags' })),
+            'keyword-density-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Paste your article text here...', buttonText: 'Check Density' })),
+            'backlink-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check Backlinks' })),
+            'plagiarism-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Paste text to check for plagiarism...', buttonText: 'Check Plagiarism' })),
+            'seo-analyzer': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Analyze SEO' })),
+            'robots-txt-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'User-agent: *\\nDisallow: /private', buttonText: 'Generate robots.txt' })),
+            'xml-sitemap-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Generate Sitemap' })),
+            'domain-authority-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check DA' })),
+            'serp-preview-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter your title, URL, and description', buttonText: 'Preview SERP' })),
+            'broken-link-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://yourwebsite.com', buttonText: 'Check Links' })),
+
+            // YouTube Tools
+            'yt-thumbnail-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Thumbnails' })),
+            'yt-tag-extractor': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Extract Tags' })),
+            'yt-video-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Download Video' })),
+            'yt-title-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a keyword (e.g., "tech review")', buttonText: 'Generate Titles' })),
+            'yt-hashtag-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a topic (e.g., "unboxing")', buttonText: 'Generate Hashtags' })),
+            'yt-description-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter video title and keywords...', buttonText: 'Generate Description' })),
+            'yt-channel-analytics': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'Enter YouTube Channel URL', buttonText: 'Analyze Channel' })),
+            'yt-keyword-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: 'Enter a seed keyword...', buttonText: 'Find Keywords' })),
+            'yt-time-stamper': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ placeholder: '0:00 Intro\\n1:23 Topic 1\\n3:45 Conclusion', buttonText: 'Format Timestamps' })),
+            'yt-to-mp3-converter': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Convert to MP3' })),
+        };
+        
+        // --- MAIN RENDER FUNCTION ---
+        const renderHeader = () => {
+            const mobileMenu = state.isMenuOpen ? `
+                <div class="md:hidden bg-gray-800/95 backdrop-blur-sm">
+                    <nav class="flex flex-col items-center space-y-4 py-4">
+                        <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="home">Home</a>
+                        <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="all-tools">All Tools</a>
+                        <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="how-to-use">How to Use</a>
+                        <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="about">About Us</a>
+                        <a href="#" class="font-medium text-gray-300 hover:text-white" data-navigate="contact">Contact</a>
+                    </nav>
+                </div>` : '';
+
+            return `
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-24">
+                        <a href="#" data-navigate="home"><span class="text-2xl font-bold text-white">Bharat Bhushan</span></a>
+                        <nav class="hidden md:flex md:items-center md:space-x-8">
+                            <a href="#" data-navigate="home" class="font-medium text-gray-300 hover:text-white">Home</a>
+                            <a href="#" data-navigate="all-tools" class="font-medium text-gray-300 hover:text-white">All Tools</a>
+                            <a href="#" data-navigate="how-to-use" class="font-medium text-gray-300 hover:text-white">How to Use</a>
+                            <a href="#" data-navigate="about" class="font-medium text-gray-300 hover:text-white">About Us</a>
+                            <a href="#" data-navigate="contact" class="font-medium text-gray-300 hover:text-white">Contact</a>
+                        </nav>
+                        <div class="md:hidden"><button id="menu-toggle" class="text-gray-300 hover:text-white">${state.isMenuOpen ? icons.X : icons.Menu}</button></div>
+                    </div>
+                </div>
+                ${mobileMenu}
+            `;
+        };
+
+        const renderFooter = () => {
+            return `
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div><h3 class="font-bold text-lg mb-4">Bharat Bhushan</h3><p class="text-gray-400 text-sm">All your essential utilities in one place.</p></div>
+                        <div><h3 class="font-bold text-lg mb-4">Quick Links</h3><ul class="space-y-2">
+                            <li><a href="#" data-navigate="about" class="text-gray-400 hover:text-white">About</a></li>
+                            <li><a href="#" data-navigate="contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                            <li><a href="#" data-navigate="how-to-use" class="text-gray-400 hover:text-white">How to Use</a></li>
+                        </ul></div>
+                        <div><h3 class="font-bold text-lg mb-4">Tool Categories</h3><ul class="space-y-2">
+                            <li><a href="#" data-navigate="all-tools" data-category="Video Tools" class="text-gray-400 hover:text-white">Video Tools</a></li>
+                            <li><a href="#" data-navigate="all-tools" data-category="Image Tools" class="text-gray-400 hover:text-white">Image Tools</a></li>
+                            <li><a href="#" data-navigate="all-tools" data-category="PDF Tools" class="text-gray-400 hover:text-white">PDF Tools</a></li>
+                        </ul></div>
+                        <div><h3 class="font-bold text-lg mb-4">Legal</h3><ul class="space-y-2">
+                            <li><a href="#" data-navigate="privacy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                            <li><a href="#" data-navigate="terms" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                            <li><a href="#" data-navigate="disclaimer" class="text-gray-400 hover:text-white">Disclaimer</a></li>
+                        </ul></div>
+                    </div>
+                    <div class="mt-8 border-t border-gray-700 pt-8 text-center text-gray-500"><p>&copy; ${new Date().getFullYear()} Bharat Bhushan. All rights reserved.</p></div>
+                </div>
+            `;
+        };
+
+        const renderHomePage = () => `
+            <div class="animate-fade-in">
+                <section class="bg-gray-900 text-white relative overflow-hidden">
+                    <div class="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-48 md:pb-32">
+                        <div class="animated-section grid md:grid-cols-2 gap-8 items-center">
+                            <div class="text-center md:text-left">
+                                <p class="font-bold text-cyan-400 uppercase tracking-widest">Welcome to Bharat Bhushan</p>
+                                <h1 class="text-5xl md:text-7xl font-extrabold text-white mt-4">BEST TOOL SITE EVER!</h1>
+                                <p class="mt-6 text-lg text-gray-300 max-w-lg mx-auto md:mx-0">All your essential utilities in one place. Powerful, fast, and easy to use for everyone.</p>
+                                <div class="mt-10"><a href="#" data-navigate="all-tools" class="bg-cyan-500 text-white font-bold py-4 px-10 rounded-full hover:bg-cyan-600 transition-all duration-300 transform hover:scale-105 inline-block text-lg">Explore All Tools</a></div>
+                            </div>
+                            <div class="hidden md:flex justify-center items-center"><div class="w-80 h-80 bg-cyan-500/20 rounded-2xl flex items-center justify-center shadow-2xl animate-pulse"><p class="text-cyan-200 text-2xl font-bold">imgbb.com</p></div></div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div>
+                </section>
+                <section id="features" class="bg-gray-50 py-16 md:py-24">
+                    <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12"><p class="font-bold text-cyan-500 uppercase tracking-widest">Our Features</p><h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mt-2">A Wide Range of Categories</h2></div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            ${Object.entries(toolCategories).map(([category, { icon }], index) => `
+                                <div data-navigate="all-tools" data-category="${category}" class="category-card-glow bg-white rounded-2xl transition-all duration-300 p-8 flex flex-col items-center text-center group cursor-pointer transform hover:-translate-y-2" style="transition-delay: ${index * 100}ms">
+                                    <div class="w-24 h-24 bg-cyan-50 rounded-full flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 text-cyan-500">${icon}</div>
+                                    <h3 class="text-2xl font-bold text-gray-800">${category}</h3>
+                                    <p class="text-gray-500 mt-2 flex-grow">${toolCategories[category].tools.length} tools available</p>
+                                    <div class="w-24 h-1 bg-cyan-200 mt-6 rounded-full group-hover:bg-cyan-500 transition-colors duration-300"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `;
+
+        const renderToolCard = (tool) => `
+            <div class="tool-card-glow bg-white p-6 rounded-xl transition-all flex flex-col text-left group">
+                <div class="flex-grow">
+                    <h3 class="font-bold text-gray-800 group-hover:text-cyan-600 transition-colors">${tool.name}</h3>
+                    <p class="text-sm text-gray-500 mt-1">${tool.description}</p>
+                </div>
+                <button data-navigate="${tool.id}" class="mt-4 w-full bg-cyan-50 text-cyan-700 font-semibold py-2 px-4 rounded-lg group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300 text-center">
+                    Open Tool
+                </button>
+            </div>
+        `;
+        
+        const renderAllToolsPage = () => {
+            const filteredTools = allTools.filter(tool => {
+                const inCategory = state.activeCategory === 'All' || tool.category === state.activeCategory;
+                const inSearch = tool.name.toLowerCase().includes(state.searchTerm.toLowerCase()) || tool.description.toLowerCase().includes(state.searchTerm.toLowerCase());
+                return inCategory && inSearch;
+            });
+
+            let toolGrid;
+            if (state.activeCategory === 'All' && !state.searchTerm) {
+                toolGrid = Object.entries(toolCategories).map(([category, { icon, tools }]) => `
+                    <div id="category-${category.replace(/\s+/g, '-')}" class="mb-16">
+                        <div class="flex items-center gap-3 mb-6"><span class="text-cyan-500">${icon}</span><h2 class="text-3xl font-bold text-gray-800">${category}</h2></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            ${tools.map(tool => renderToolCard(tool)).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                toolGrid = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    ${filteredTools.length > 0 ? filteredTools.map(tool => renderToolCard(tool)).join('') : `<p class="col-span-full text-center text-gray-500">No tools found.</p>`}
+                </div>`;
+            }
+
+            return `
+                <div class="bg-gray-50 pt-24 animate-fade-in">
+                    <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+                        <div class="text-center mb-12">
+                            <h1 class="text-5xl font-extrabold text-gray-800">All Tools</h1>
+                            <p class="text-lg text-gray-500 mt-2">Your complete suite of online utilities.</p>
+                        </div>
+                        <div class="sticky top-0 md:top-24 bg-gray-50/80 backdrop-blur-sm py-4 z-30 mb-8">
+                            <div id="category-filter" class="flex flex-wrap justify-center gap-2 mb-6">
+                                <button data-category="All" class="px-4 py-2 rounded-full font-semibold transition-colors ${state.activeCategory === 'All' ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/30' : 'bg-white text-gray-700 hover:bg-cyan-50'}">All</button>
+                                ${Object.keys(toolCategories).map(cat => `<button data-category="${cat}" class="px-4 py-2 rounded-full font-semibold transition-colors ${state.activeCategory === cat ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/30' : 'bg-white text-gray-700 hover:bg-cyan-50'}">${cat}</button>`).join('')}
+                            </div>
+                            <div class="relative max-w-2xl mx-auto">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">${icons.Search}</span>
+                                <input id="search-input" type="text" placeholder="Search for a tool..." value="${state.searchTerm}" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-cyan-500"/>
+                            </div>
+                        </div>
+                        <div id="tool-grid">${toolGrid}</div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderStaticPage = (title, icon, content) => `
+            <div class="bg-gray-50 pt-24 animate-fade-in">
+                <div class="animated-section container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+                    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                        <div class="flex items-center gap-4 text-cyan-500 mb-6">${icon}<h1 class="text-4xl font-bold text-gray-800">${title}</h1></div>
+                        <div class="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-700 prose-a:text-cyan-600 hover:prose-a:text-cyan-700">${content}</div>
+                        <button data-navigate="home" class="mt-8 flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold transition-colors duration-300">${icons.ArrowLeft} Back to Home</button>
+                    </div>
+                </div>
+            `;
+        
+        const render = () => {
+            const tool = allTools.find(t => t.id === state.page);
+            headerEl.innerHTML = renderHeader();
+            footerEl.innerHTML = renderFooter();
+            
+            let pageContent = '';
+            if (tool) {
+                const renderFn = toolRenderers[tool.id];
+                if (renderFn) {
+                    pageContent = renderFn(tool);
+                } else {
+                    // Default "Under Construction" for tools without a specific design
+                    pageContent = renderPageWrapper(tool, `<div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">This tool's UI is under construction.</div>`);
+                }
+            } else {
+                // Render static pages or home
+                switch (state.page) {
+                    case 'home': pageContent = renderHomePage(); break;
+                    case 'all-tools': pageContent = renderAllToolsPage(); break;
+                    case 'about': pageContent = renderStaticPage("About Us", icons.Cpu, `<p>Welcome to Bharat Bhushan, your all-in-one destination for powerful and easy-to-use online utilities. Our mission is to simplify complex digital tasks, making them accessible to everyone, everywhere, for free.</p>`); break;
+                    case 'contact': pageContent = renderStaticPage("Contact Us", icons.FileText, `<p>We'd love to hear from you! Whether you have a question, a suggestion for a new tool, or just want to say hello, please don't hesitate to reach out.</p>`); break;
+                    case 'how-to-use': pageContent = renderStaticPage("How to Use", icons.CheckCircle, `<p>Using our tools is designed to be as simple and intuitive as possible. Here’s a quick guide to get you started: Select a tool, provide your input, and process/download.</p>`); break;
+                    case 'disclaimer': pageContent = renderStaticPage("Disclaimer", icons.AlertTriangle, `<h3>Service "As Is"</h3><p>All tools and services provided on this website are on an "as is" and "as available" basis. We make no warranties, expressed or implied, regarding the operation of our services.</p>`); break;
+                    case 'privacy': pageContent = renderStaticPage("Privacy Policy", icons.Shield, `<h3>Our Commitment</h3><p>Your privacy is critically important to us. We do not store or view any files you upload. All files are processed in real-time and are permanently deleted from our servers automatically after a short period.</p>`); break;
+                    case 'terms': pageContent = renderStaticPage("Terms of Service", icons.FileCheck, `<h3>1. Acceptance of Terms</h3><p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>`); break;
+                    default: pageContent = renderHomePage();
+                }
+            }
+            mainContent.innerHTML = pageContent;
+            attachEventListeners();
+            setupScrollAnimations();
+        };
+
+        // --- EVENT HANDLING ---
+        const handleNavigate = (page, pageState = null) => {
+            state.page = page;
+            state.pageState = pageState;
+            if (page === 'all-tools' && pageState) {
+                state.activeCategory = pageState;
+            } else if (page !== 'all-tools') {
+                state.activeCategory = 'All';
+                state.searchTerm = '';
+            }
+            window.scrollTo(0, 0);
+            render();
+        };
+        
+        const attachEventListeners = () => {
+            document.body.addEventListener('click', e => {
+                const navTarget = e.target.closest('[data-navigate]');
+                if (navTarget) {
+                    e.preventDefault();
+                    handleNavigate(navTarget.dataset.navigate, navTarget.dataset.category || null);
+                }
+            });
+            
+            const menuToggle = document.getElementById('menu-toggle');
+            if (menuToggle) {
+                menuToggle.onclick = () => {
+                    state.isMenuOpen = !state.isMenuOpen;
+                    render();
+                };
+            }
+
+            const categoryFilter = document.getElementById('category-filter');
+            if (categoryFilter) {
+                categoryFilter.onclick = e => {
+                    const categoryButton = e.target.closest('[data-category]');
+                    if (categoryButton) {
+                        state.activeCategory = categoryButton.dataset.category;
+                        render();
+                        document.getElementById('tool-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                };
+            }
+
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.oninput = e => {
+                    state.searchTerm = e.target.value;
+                    render();
+                };
+            }
+
+            // Specific Tool Logic
+            if (state.page === 'password-generator') {
+                const output = document.getElementById('interactive-output');
+                const lengthSlider = document.getElementById('length');
+                const lengthLabel = document.getElementById('length-label');
+                const generateBtn = document.getElementById('generate-btn');
+
+                const generatePassword = () => {
+                    const length = lengthSlider.value;
+                    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+                    let password = "";
+                    for (let i = 0, n = charset.length; i < length; ++i) {
+                        password += charset.charAt(Math.floor(Math.random() * n));
+                    }
+                    output.textContent = password;
+                };
+                lengthSlider.oninput = () => { lengthLabel.textContent = lengthSlider.value; };
+                generateBtn.onclick = generatePassword;
+                generatePassword(); // Initial password
+            }
+            
+            // File Drop Zone Logic
+            const dropZone = document.getElementById('file-drop-zone');
+            const fileInput = document.getElementById('file-input');
+            const fileList = document.getElementById('file-list');
+            if (dropZone) {
+                dropZone.onclick = () => fileInput.click();
+                dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('dragover'); };
+                dropZone.ondragleave = () => dropZone.classList.remove('dragover');
+                dropZone.ondrop = (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove('dragover');
+                    fileInput.files = e.dataTransfer.files;
+                    updateFileList();
+                };
+                fileInput.onchange = updateFileList;
+            }
+            function updateFileList() {
+                if (!fileList || !fileInput.files) return;
+                fileList.innerHTML = Array.from(fileInput.files).map(f => `<div>${f.name} (${(f.size/1024).toFixed(2)} KB)</div>`).join('');
+            }
+        };
+        
+        // --- ANIMATIONS ---
+        const setupScrollAnimations = () => {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedSections.forEach(section => observer.observe(section));
+        };
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', render);
+
+    </script>
+</body>
+</html>
