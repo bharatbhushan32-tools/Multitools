@@ -20,7 +20,6 @@
         .tool-card-glow:hover { box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.1), 0 4px 6px -2px rgba(6, 182, 212, 0.1); }
         .loader { border: 4px solid #f3f3f3; border-top: 4px solid #06b6d4; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* File input style */
         .file-drop-zone { border: 2px dashed #cbd5e1; }
         .file-drop-zone.dragover { border-color: #06b6d4; background-color: #ecfeff; }
     </style>
@@ -32,7 +31,7 @@
     <footer id="footer" class="bg-gray-900 text-white"></footer>
 
     <script type="module">
-        const BACKEND_URL = 'https://multitools-7rpo.onrender.com';
+        const BACKEND_URL = 'https://your-render-app-name.onrender.com'; // IMPORTANT: Replace with your actual Render URL
         
         // --- ICONS, DATA, STATE, etc. ---
         const icons = { Video: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>`, Image: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`, Settings: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`, FileText: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`, BarChart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>`, Youtube: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M2.5 17a24.12 24.12 0 0 0 0-10C2.5 6 7.5 4 12 4s9.5 2 9.5 3-2.5 4.5-5 6-7 1-7 1Z"/><path d="M11 11.25a1.25 1.25 0 1 0 2.5 0 1.25 1.25 0 1 0-2.5 0Z"/></svg>`, Menu: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`, X: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>`, ArrowLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`, Cpu: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M9 2v2"/><path d="M9 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 15v-2"/><path d="M15 9v2"/></svg>`, CheckCircle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`, AlertTriangle: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>`, Shield: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, FileCheck: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>`, Search: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>`, UploadCloud: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>`, Mail: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`, Info: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,};
@@ -99,82 +98,6 @@
             </div>
         `;
 
-        // --- ALL 60 TOOL RENDER FUNCTIONS ---
-        const toolRenderers = {
-            // Video Tools
-            'video-cutter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-cutter', acceptedFiles: 'video/*', buttonText: 'Upload Video to Cut' })),
-            'video-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-merger', acceptedFiles: 'video/*', multiple: true, buttonText: 'Select Videos to Merge' })),
-            'video-to-mp3': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-to-mp3', acceptedFiles: 'video/*', buttonText: 'Convert Video to MP3' })),
-            'video-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-compressor', acceptedFiles: 'video/*', buttonText: 'Compress Video' })),
-            'screen-recorder': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00', controls: `<div class="flex justify-center gap-4"><button id="start-btn" class="bg-green-500 text-white p-3 rounded-full">Start</button><button id="stop-btn" class="bg-red-500 text-white p-3 rounded-full">Stop</button></div>`})),
-            'gif-maker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'gif-maker', acceptedFiles: 'video/*', buttonText: 'Create GIF' })),
-            'video-watermark-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-watermark-remover', acceptedFiles: 'video/*', buttonText: 'Remove Watermark' })),
-            'video-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-bg-remover', acceptedFiles: 'video/*', buttonText: 'Remove Background' })),
-            'video-speed-controller': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-speed-controller', acceptedFiles: 'video/*', buttonText: 'Change Speed' })),
-            'add-subtitles': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'add-subtitles', acceptedFiles: 'video/*,.srt,.vtt', buttonText: 'Add Subtitles', multiple: true })),
-
-            // Image Tools
-            'image-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-compressor', acceptedFiles: 'image/jpeg,image/png,image/webp', buttonText: 'Compress Image', extraFields: `<div class="pt-4"><label for="quality" class="block text-sm font-medium text-gray-700">Quality (1-100)</label><input type="range" id="quality" name="quality" min="1" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
-            'image-resizer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-resizer', acceptedFiles: 'image/*', buttonText: 'Resize Image', extraFields: `<div class="flex gap-4 pt-4"><input type="number" name="width" placeholder="Width (px)" class="w-1/2 p-2 border rounded-lg"><input type="number" name="height" placeholder="Height (px)" class="w-1/2 p-2 border rounded-lg"></div>` })),
-            'image-bg-remover': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-bg-remover', acceptedFiles: 'image/*', buttonText: 'Remove Background' })),
-            'image-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-to-pdf', acceptedFiles: 'image/*', multiple: true, buttonText: 'Convert to PDF' })),
-            'image-cropper': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-cropper', acceptedFiles: 'image/*', buttonText: 'Crop Image' })),
-            'image-converter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-converter', acceptedFiles: 'image/*', buttonText: 'Convert Image', extraFields: `<div class="pt-4"><label for="format" class="block text-sm font-medium text-gray-700">Convert to:</label><select name="format" class="w-full p-2 border rounded-lg mt-1"><option>PNG</option><option>JPG</option><option>WEBP</option><option>GIF</option></select></div>` })),
-            'blur-image': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'blur-image', acceptedFiles: 'image/*', buttonText: 'Blur Image' })),
-            'color-picker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'color-picker', acceptedFiles: 'image/*', buttonText: 'Pick Colors' })),
-            'ai-image-enhancer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'ai-image-enhancer', acceptedFiles: 'image/*', buttonText: 'Enhance with AI' })),
-            'face-swap': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'face-swap', acceptedFiles: 'image/*', multiple: true, buttonText: 'Swap Faces' })),
-
-            // Utility Tools
-            'qr-code-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'qr-code-generator', placeholder: 'Enter URL or text to encode', buttonText: 'Generate QR Code' })),
-            'password-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Click Generate', controls: `<div class="flex items-center justify-center gap-4"><input type="range" id="length" min="8" max="32" value="16" class="w-64"><span id="length-label">16</span> characters</div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg">Generate</button>` })),
-            'random-number-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '0', controls: `<div class="flex gap-4 justify-center"><input id="min-num" type="number" placeholder="Min" value="1" class="w-1/3 p-2 border rounded-lg"><input id="max-num" type="number" placeholder="Max" value="100" class="w-1/3 p-2 border rounded-lg"></div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Generate</button>` })),
-            'ip-checker': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Fetching your IP...', controls: `` })),
-            'unit-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" class="p-2 border rounded-lg" placeholder="Value"><select class="p-2 border rounded-lg"><option>Kilometers</option><option>Miles</option></select><select class="p-2 border rounded-lg"><option>Miles</option><option>Kilometers</option></select></div>`),
-            'timezone-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="datetime-local" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>UTC</option><option>Local</option></select><div class="p-2 bg-gray-100 rounded-lg">Converted Time</div></div>`),
-            'text-to-speech': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'text-to-speech', placeholder: 'Type text to speak...', buttonText: 'Speak' })),
-            'stopwatch-timer': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00.000', controls: `<div class="flex justify-center gap-4"><button id="start-btn" class="bg-green-500 text-white p-3 rounded-full">Start</button><button id="stop-btn" class="bg-red-500 text-white p-3 rounded-full">Stop</button><button id="reset-btn" class="bg-gray-500 text-white p-3 rounded-full">Reset</button></div>`})),
-            'notepad-online': (tool) => renderPageWrapper(tool, `<textarea class="w-full h-80 p-4 border rounded-lg" placeholder="Start typing..."></textarea>`),
-            'currency-converter': (tool) => renderPageWrapper(tool, `<div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"><input type="number" value="1" class="p-2 border rounded-lg"><select class="p-2 border rounded-lg"><option>USD</option><option>EUR</option></select><select class="p-2 border rounded-lg"><option>EUR</option><option>USD</option></select></div>`),
-
-            // PDF Tools
-            'pdf-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-merger', acceptedFiles: '.pdf', multiple: true, buttonText: 'Merge PDFs' })),
-            'pdf-splitter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-splitter', acceptedFiles: '.pdf', buttonText: 'Split PDF' })),
-            'pdf-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-compressor', acceptedFiles: '.pdf', buttonText: 'Compress PDF' })),
-            'pdf-to-word': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-to-word', acceptedFiles: '.pdf', buttonText: 'Convert to Word' })),
-            'word-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'word-to-pdf', acceptedFiles: '.doc,.docx', buttonText: 'Convert to PDF' })),
-            'pdf-to-jpg': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-to-jpg', acceptedFiles: '.pdf', buttonText: 'Convert to JPG' })),
-            'jpg-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'jpg-to-pdf', acceptedFiles: 'image/jpeg', multiple: true, buttonText: 'Convert to PDF' })),
-            'unlock-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'unlock-pdf', acceptedFiles: '.pdf', buttonText: 'Unlock PDF' })),
-            'protect-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'protect-pdf', acceptedFiles: '.pdf', buttonText: 'Protect PDF', extraFields: `<div class="pt-4"><input type="password" name="password" placeholder="Enter Password" class="w-full p-2 border rounded-lg"></div>` })),
-            'rotate-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'rotate-pdf', acceptedFiles: '.pdf', buttonText: 'Rotate PDF' })),
-
-            // SEO Tools
-            'meta-tag-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'meta-tag-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Meta Tags' })),
-            'keyword-density-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'keyword-density-checker', placeholder: 'Paste your article text here...', buttonText: 'Check Density' })),
-            'backlink-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'backlink-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check Backlinks' })),
-            'plagiarism-checker': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'plagiarism-checker', placeholder: 'Paste text to check for plagiarism...', buttonText: 'Check Plagiarism' })),
-            'seo-analyzer': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'seo-analyzer', placeholder: 'https://yourwebsite.com', buttonText: 'Analyze SEO' })),
-            'robots-txt-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'robots-txt-generator', placeholder: 'User-agent: *\\nDisallow: /private', buttonText: 'Generate robots.txt' })),
-            'xml-sitemap-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'xml-sitemap-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Sitemap' })),
-            'domain-authority-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'domain-authority-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check DA' })),
-            'serp-preview-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'serp-preview-tool', placeholder: 'Enter your title, URL, and description', buttonText: 'Preview SERP' })),
-            'broken-link-checker': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'broken-link-checker', placeholder: 'https://yourwebsite.com', buttonText: 'Check Links' })),
-
-            // YouTube Tools
-            'yt-thumbnail-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-thumbnail-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Thumbnails' })),
-            'yt-tag-extractor': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-tag-extractor', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Extract Tags' })),
-            'yt-video-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-video-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Download Video' })),
-            'yt-title-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-title-generator', placeholder: 'Enter a keyword (e.g., "tech review")', buttonText: 'Generate Titles' })),
-            'yt-hashtag-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-hashtag-generator', placeholder: 'Enter a topic (e.g., "unboxing")', buttonText: 'Generate Hashtags' })),
-            'yt-description-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-description-generator', placeholder: 'Enter video title and keywords...', buttonText: 'Generate Description' })),
-            'yt-channel-analytics': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-channel-analytics', placeholder: 'Enter YouTube Channel URL', buttonText: 'Analyze Channel' })),
-            'yt-keyword-tool': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-keyword-tool', placeholder: 'Enter a seed keyword...', buttonText: 'Find Keywords' })),
-            'yt-time-stamper': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-time-stamper', placeholder: '0:00 Intro\\n1:23 Topic 1\\n3:45 Conclusion', buttonText: 'Format Timestamps' })),
-            'yt-to-mp3-converter': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-to-mp3-converter', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Convert to MP3' })),
-        };
-        
-        // --- MAIN RENDER FUNCTION ---
         const renderHeader = () => {
             const mobileMenu = state.isMenuOpen ? `
                 <div class="md:hidden bg-gray-800/95 backdrop-blur-sm">
@@ -334,7 +257,58 @@
                 </div>
             </div>
         `;
-        
+
+        // --- COMPLETE TOOL RENDERERS ---
+        const toolRenderers = {
+            // Video Tools
+            'video-cutter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-cutter', acceptedFiles: 'video/*', buttonText: 'Upload Video to Cut', extraFields: `<div class="flex gap-4 pt-4"><input type="text" name="startTime" placeholder="Start Time (e.g., 00:10)" class="w-1/2 p-2 border rounded-lg"><input type="text" name="duration" placeholder="Duration (e.g., 5)" class="w-1/2 p-2 border rounded-lg"></div>` })),
+            'video-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-merger', acceptedFiles: 'video/*', multiple: true, buttonText: 'Select Videos to Merge' })),
+            'video-to-mp3': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-to-mp3', acceptedFiles: 'video/*', buttonText: 'Convert Video to MP3' })),
+            'video-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-compressor', acceptedFiles: 'video/*', buttonText: 'Compress Video' })),
+            'screen-recorder': (tool) => renderPageWrapper(tool, `<div id="screen-recorder-ui" class="text-center space-y-4"><video id="screen-preview" class="w-full rounded-lg bg-gray-900" autoplay muted></video><div id="results-container"></div><div class="flex justify-center gap-4"><button id="start-btn" class="bg-green-500 text-white py-2 px-4 rounded-lg">Start Recording</button><button id="stop-btn" class="bg-red-500 text-white py-2 px-4 rounded-lg hidden">Stop Recording</button></div></div>`),
+            'gif-maker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'gif-maker', acceptedFiles: 'video/*', buttonText: 'Create GIF' })),
+            'video-speed-controller': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'video-speed-controller', acceptedFiles: 'video/*', buttonText: 'Change Speed', extraFields: `<div class="pt-4"><label for="speed" class="block text-sm font-medium text-gray-700">Playback Speed (e.g., 1.5 for 1.5x)</label><input type="number" id="speed" name="speed" value="1.5" step="0.1" class="w-full p-2 border rounded-lg mt-1"></div>` })),
+            
+            // Image Tools
+            'image-compressor': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-compressor', acceptedFiles: 'image/jpeg,image/png,image/webp', buttonText: 'Compress Image', extraFields: `<div class="pt-4"><label for="quality" class="block text-sm font-medium text-gray-700">Quality (1-100)</label><input type="range" id="quality" name="quality" min="1" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
+            'image-resizer': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-resizer', acceptedFiles: 'image/*', buttonText: 'Resize Image', extraFields: `<div class="flex gap-4 pt-4"><input type="number" name="width" placeholder="Width (px)" class="w-1/2 p-2 border rounded-lg"><input type="number" name="height" placeholder="Height (px)" class="w-1/2 p-2 border rounded-lg"></div>` })),
+            'image-to-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-to-pdf', acceptedFiles: 'image/*', multiple: true, buttonText: 'Convert Images to PDF' })),
+            'image-cropper': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-cropper', acceptedFiles: 'image/*', buttonText: 'Crop Image', extraFields: `<p class="text-sm text-gray-500 pt-2">Note: Cropping logic must be implemented via a UI library. This is a placeholder.</p>` })),
+            'image-converter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'image-converter', acceptedFiles: 'image/*', buttonText: 'Convert Image', extraFields: `<div class="pt-4"><label for="format" class="block text-sm font-medium text-gray-700">Convert to:</label><select name="format" class="w-full p-2 border rounded-lg mt-1"><option value="png">PNG</option><option value="jpeg">JPG</option><option value="webp">WEBP</option><option value="gif">GIF</option></select></div>` })),
+            'blur-image': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'blur-image', acceptedFiles: 'image/*', buttonText: 'Blur Image', extraFields: `<div class="pt-4"><label for="blur" class="block text-sm font-medium text-gray-700">Blur Amount (1-100)</label><input type="range" id="blur" name="blur" min="1" max="100" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"></div>` })),
+            'color-picker': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'color-picker', acceptedFiles: 'image/*', buttonText: 'Pick Dominant Color' })),
+            
+            // Utility Tools
+            'qr-code-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'qr-code-generator', placeholder: 'Enter URL or text to encode', buttonText: 'Generate QR Code' })),
+            'password-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: 'Click Generate', controls: `<div class="flex items-center justify-center gap-4"><input type="range" id="length" min="8" max="32" value="16" class="w-64"><span id="length-label">16</span> characters</div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg">Generate</button>` })),
+            'random-number-generator': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '0', controls: `<div class="flex gap-4 justify-center"><input id="min-num" type="number" placeholder="Min" value="1" class="w-1/3 p-2 border rounded-lg"><input id="max-num" type="number" placeholder="Max" value="100" class="w-1/3 p-2 border rounded-lg"></div><button id="generate-btn" class="bg-cyan-500 text-white font-bold py-2 px-6 rounded-lg mt-4">Generate</button>` })),
+            'ip-checker': (tool) => renderPageWrapper(tool, `<div id="results-container" class="text-center font-mono text-lg p-4 bg-gray-100 rounded-lg">Fetching your IP...</div>`),
+            'stopwatch-timer': (tool) => renderPageWrapper(tool, renderInteractiveTemplate({ initialValue: '00:00:00.000', controls: `<div class="flex justify-center gap-4"><button id="start-stop-btn" class="bg-green-500 text-white py-2 px-4 rounded-lg w-28">Start</button><button id="reset-btn" class="bg-gray-500 text-white py-2 px-4 rounded-lg">Reset</button></div>` })),
+            'notepad-online': (tool) => renderPageWrapper(tool, `<div class="space-y-4"><textarea id="notepad-area" class="w-full h-80 p-4 border rounded-lg" placeholder="Start typing..."></textarea><button id="save-note-btn" class="bg-cyan-500 text-white py-2 px-4 rounded-lg">Save Note</button></div>`),
+            
+            // PDF Tools
+            'pdf-merger': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-merger', acceptedFiles: '.pdf', multiple: true, buttonText: 'Merge PDFs' })),
+            'pdf-splitter': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'pdf-splitter', acceptedFiles: '.pdf', buttonText: 'Split PDF' })),
+            'rotate-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'rotate-pdf', acceptedFiles: '.pdf', buttonText: 'Rotate PDF', extraFields: `<div class="pt-4"><label for="angle" class="block text-sm font-medium text-gray-700">Angle:</label><select name="angle" class="w-full p-2 border rounded-lg mt-1"><option value="90">90° Clockwise</option><option value="180">180°</option><option value="270">270° Clockwise</option></select></div>` })),
+            'protect-pdf': (tool) => renderPageWrapper(tool, renderFileUploadTemplate({ endpoint: 'protect-pdf', acceptedFiles: '.pdf', buttonText: 'Protect PDF', extraFields: `<div class="pt-4"><input type="password" name="password" placeholder="Enter Password" class="w-full p-2 border rounded-lg"></div>` })),
+            
+            // SEO Tools
+            'meta-tag-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'meta-tag-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Meta Tags' })),
+            'robots-txt-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'robots-txt-generator', placeholder: 'Disallow: /private\nDisallow: /admin', buttonText: 'Generate robots.txt' })),
+            'xml-sitemap-generator': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'xml-sitemap-generator', placeholder: 'https://yourwebsite.com', buttonText: 'Generate Sitemap' })),
+            
+            // YouTube Tools
+            'yt-thumbnail-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-thumbnail-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Thumbnails' })),
+            'yt-tag-extractor': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-tag-extractor', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Extract Tags' })),
+            'yt-video-downloader': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-video-downloader', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Get Download Link' })),
+            'yt-title-generator': (tool) => renderPageWrapper(tool, renderTextInputTemplate({ endpoint: 'yt-title-generator', placeholder: 'Enter a keyword (e.g., "tech review")', buttonText: 'Generate Titles' })),
+            'yt-to-mp3-converter': (tool) => renderPageWrapper(tool, renderUrlInputTemplate({ endpoint: 'yt-to-mp3-converter', placeholder: 'https://www.youtube.com/watch?v=...', buttonText: 'Convert to MP3' })),
+
+            // Placeholder for complex/API-heavy tools
+            'default': (tool) => renderPageWrapper(tool, `<div class="bg-blue-100 text-blue-800 p-4 rounded-lg"><p class="font-bold">Under Construction</p><p>This tool requires a complex implementation or a paid third-party API and is not yet available.</p></div>`)
+        };
+
+        // --- MAIN RENDER FUNCTION ---
         const render = () => {
             headerEl.innerHTML = renderHeader();
             footerEl.innerHTML = renderFooter();
@@ -343,14 +317,10 @@
             let pageContent = '';
 
             if (tool) {
-                const renderFn = toolRenderers[tool.id];
-                if (renderFn) {
-                    pageContent = renderFn(tool);
-                } else {
-                    // Fallback for any tool that might be missing a renderer function
-                    pageContent = renderPageWrapper(tool, `<div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">This tool's UI is under construction.</div>`);
-                }
+                const renderFn = toolRenderers[tool.id] || toolRenderers['default'];
+                pageContent = renderFn(tool);
             } else {
+                // Render static pages like home, about, etc.
                 switch (state.page) {
                     case 'home': pageContent = renderHomePage(); break;
                     case 'all-tools': pageContent = renderAllToolsPage(); break;
@@ -401,7 +371,6 @@
             const searchInput = document.getElementById('search-input');
             if (searchInput) { searchInput.oninput = e => { state.searchTerm = e.target.value; render(); }; }
 
-            // Attach form submission logic
             const toolForm = document.getElementById('tool-form');
             if (toolForm) {
                 toolForm.addEventListener('submit', async (e) => {
@@ -421,14 +390,22 @@
 
                     if (fileInput) {
                         if (fileInput.files.length === 0) {
-                            resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">Error:</p><p>Please select at least one file.</p></div>`;
+                            resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">Input Error:</p><p>Please select at least one file.</p></div>`;
                             return;
                         }
                         body = new FormData(e.target);
                     } else if (urlInput) {
+                        if (!urlInput.value) {
+                             resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">Input Error:</p><p>Please enter a URL.</p></div>`;
+                            return;
+                        }
                         body = JSON.stringify({ url: urlInput.value });
                         headers['Content-Type'] = 'application/json';
                     } else if (textInput) {
+                         if (!textInput.value) {
+                             resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">Input Error:</p><p>Please enter some text.</p></div>`;
+                            return;
+                        }
                         body = JSON.stringify({ text: textInput.value });
                         headers['Content-Type'] = 'application/json';
                     }
@@ -439,78 +416,215 @@
 
                     try {
                         const response = await fetch(`${BACKEND_URL}/api/${endpoint}`, { method: 'POST', headers, body });
+
+                        const contentType = response.headers.get("content-type");
+                        if (!response.ok) {
+                            let errorText = `HTTP error! Status: ${response.status}`;
+                            if (contentType && contentType.indexOf("application/json") !== -1) {
+                                const errorJson = await response.json();
+                                errorText = errorJson.error || errorText;
+                            } else {
+                                errorText = await response.text();
+                            }
+                            throw new Error(errorText);
+                        }
+
                         const data = await response.json();
-                        if (!response.ok) throw new Error(data.error || 'An unknown error occurred.');
                         
                         let resultHTML = `<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg" role="alert"><h3 class="font-bold">✅ Success!</h3>`;
                         if (data.fileUrl) {
                             resultHTML += `<p class="mt-2">Your file is ready. <a href="${data.fileUrl}" target="_blank" rel="noopener noreferrer" class="font-bold underline hover:text-green-900">Download Now</a></p>`;
                         }
+                        if (data.imageUrl) {
+                            resultHTML += `<p class="mt-2 font-semibold">Generated QR Code:</p><img src="${data.imageUrl}" class="mt-2 rounded-lg shadow-md" alt="Generated QR Code"/>`;
+                        }
                         if (data.thumbnails) {
                              resultHTML += `<p class="mt-2 font-semibold">Click a thumbnail to open in a new tab:</p><div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">${Object.values(data.thumbnails).map(thumb => `<a href="${thumb.url}" target="_blank"><img src="${thumb.url}" class="rounded-lg shadow-md hover:shadow-xl transition-shadow" alt="YouTube Thumbnail"/></a>`).join('')}</div>`;
                         }
-                        if (data.generatedTags) {
-                            resultHTML += `<p class="mt-2 font-semibold">Extracted Tags:</p><pre class="bg-gray-200 text-gray-800 p-3 rounded mt-2 text-sm whitespace-pre-wrap font-mono">${data.generatedTags}</pre>`;
+                        if (data.tags) {
+                            resultHTML += `<p class="mt-2 font-semibold">Extracted Tags:</p><div class="flex flex-wrap gap-2 mt-2">${data.tags.map(tag => `<span class="bg-gray-200 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">${tag}</span>`).join('')}</div>`;
                         }
                         if (data.text) {
-                            resultHTML += `<p class="mt-2">${data.text}</p>`;
-                        }
-                        if (data.data) { // Generic data display
-                           resultHTML += `<p class="mt-2 font-semibold">Results:</p><pre class="bg-gray-200 text-gray-800 p-3 rounded mt-2 text-sm whitespace-pre-wrap font-mono">${JSON.stringify(data.data, null, 2)}</pre>`;
+                            resultHTML += `<p class="mt-2 whitespace-pre-wrap">${data.text}</p>`;
                         }
                         resultHTML += `</div>`;
                         resultsContainer.innerHTML = resultHTML;
 
                     } catch (error) {
-                        resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">Error:</p><p>${error.message}</p></div>`;
+                        resultsContainer.innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg" role="alert"><p class="font-bold">An Error Occurred:</p><p class="font-mono text-sm mt-2 bg-red-200 p-2 rounded">${error.message}</p></div>`;
                     } finally {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalButtonHTML;
                     }
                 });
             }
-            
-            // Client-side tool logic
-            if (state.page === 'password-generator') {
-                const output = document.getElementById('interactive-output');
-                const lengthSlider = document.getElementById('length');
-                const lengthLabel = document.getElementById('length-label');
-                const generateBtn = document.getElementById('generate-btn');
-                const generatePassword = () => {
-                    const length = lengthSlider.value;
-                    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-                    let password = "";
-                    for (let i = 0, n = charset.length; i < length; ++i) { password += charset.charAt(Math.floor(Math.random() * n)); }
-                    output.textContent = password;
-                };
-                lengthSlider.oninput = () => { lengthLabel.textContent = lengthSlider.value; };
-                generateBtn.onclick = generatePassword;
-                generatePassword();
-            }
-            
-            // File Drop Zone Logic
-            const dropZone = document.getElementById('file-drop-zone');
-            const fileInput = document.getElementById('file-input');
-            const fileList = document.getElementById('file-list');
-            
-            function updateFileList() {
-                if (!fileList || !fileInput || !fileInput.files) return;
-                fileList.innerHTML = Array.from(fileInput.files).map(f => `<div class="text-xs p-1 bg-gray-100 rounded mt-1">${f.name} (${(f.size/1024).toFixed(2)} KB)</div>`).join('');
-            }
 
-            if (dropZone && fileInput) {
-                dropZone.onclick = () => fileInput.click();
-                dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('dragover'); };
-                dropZone.ondragleave = () => dropZone.classList.remove('dragover');
-                dropZone.ondrop = (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); fileInput.files = e.dataTransfer.files; updateFileList(); };
-                fileInput.onchange = updateFileList;
+            // --- CLIENT-SIDE TOOL LOGIC ---
+            switch (state.page) {
+                case 'password-generator': {
+                    const output = document.getElementById('interactive-output');
+                    const lengthSlider = document.getElementById('length');
+                    const lengthLabel = document.getElementById('length-label');
+                    const generateBtn = document.getElementById('generate-btn');
+                    const generatePassword = () => {
+                        const length = lengthSlider.value;
+                        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+                        let password = "";
+                        for (let i = 0, n = charset.length; i < length; ++i) { password += charset.charAt(Math.floor(Math.random() * n)); }
+                        output.textContent = password;
+                    };
+                    lengthSlider.oninput = () => { lengthLabel.textContent = lengthSlider.value; };
+                    generateBtn.onclick = generatePassword;
+                    generatePassword();
+                    break;
+                }
+                case 'random-number-generator': {
+                    const output = document.getElementById('interactive-output');
+                    const minInput = document.getElementById('min-num');
+                    const maxInput = document.getElementById('max-num');
+                    const generateBtn = document.getElementById('generate-btn');
+                    generateBtn.onclick = () => {
+                        const min = parseInt(minInput.value);
+                        const max = parseInt(maxInput.value);
+                        const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                        output.textContent = randomNum;
+                    };
+                    break;
+                }
+                case 'ip-checker': {
+                    const resultsContainer = document.getElementById('results-container');
+                    fetch(`${BACKEND_URL}/api/ip-checker`, { method: 'POST' })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.error) throw new Error(data.error);
+                            resultsContainer.textContent = data.text;
+                        })
+                        .catch(err => {
+                            resultsContainer.textContent = `Error: ${err.message}`;
+                        });
+                    break;
+                }
+                case 'stopwatch-timer': {
+                    const output = document.getElementById('interactive-output');
+                    const startStopBtn = document.getElementById('start-stop-btn');
+                    const resetBtn = document.getElementById('reset-btn');
+                    let timer;
+                    let startTime;
+                    let elapsedTime = 0;
+                    let isRunning = false;
+
+                    function formatTime(ms) {
+                        const date = new Date(ms);
+                        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+                        const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+                        const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
+                        return `${minutes}:${seconds}.${milliseconds}`;
+                    }
+
+                    function update() {
+                        const diff = Date.now() - startTime;
+                        output.textContent = formatTime(elapsedTime + diff);
+                    }
+
+                    startStopBtn.onclick = () => {
+                        if (isRunning) {
+                            clearInterval(timer);
+                            elapsedTime += Date.now() - startTime;
+                            startStopBtn.textContent = 'Start';
+                            startStopBtn.classList.replace('bg-red-500', 'bg-green-500');
+                        } else {
+                            startTime = Date.now();
+                            timer = setInterval(update, 10);
+                            startStopBtn.textContent = 'Stop';
+                            startStopBtn.classList.replace('bg-green-500', 'bg-red-500');
+                        }
+                        isRunning = !isRunning;
+                    };
+
+                    resetBtn.onclick = () => {
+                        clearInterval(timer);
+                        isRunning = false;
+                        elapsedTime = 0;
+                        output.textContent = '00:00:00.000';
+                        startStopBtn.textContent = 'Start';
+                        startStopBtn.classList.replace('bg-red-500', 'bg-green-500');
+                    };
+                    break;
+                }
+                case 'notepad-online': {
+                    const notepadArea = document.getElementById('notepad-area');
+                    const saveBtn = document.getElementById('save-note-btn');
+                    notepadArea.value = localStorage.getItem('onlineNote') || '';
+                    saveBtn.onclick = () => {
+                        localStorage.setItem('onlineNote', notepadArea.value);
+                        saveBtn.textContent = 'Saved!';
+                        setTimeout(() => { saveBtn.textContent = 'Save Note'; }, 2000);
+                    };
+                    break;
+                }
+                case 'screen-recorder': {
+                    const startBtn = document.getElementById('start-btn');
+                    const stopBtn = document.getElementById('stop-btn');
+                    const preview = document.getElementById('screen-preview');
+                    const resultsContainer = document.getElementById('results-container');
+                    let mediaRecorder;
+                    let recordedChunks = [];
+
+                    startBtn.onclick = async () => {
+                        try {
+                            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+                            preview.srcObject = stream;
+                            mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+                            mediaRecorder.ondataavailable = (event) => {
+                                if (event.data.size > 0) {
+                                    recordedChunks.push(event.data);
+                                }
+                            };
+
+                            mediaRecorder.onstop = () => {
+                                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                                const url = URL.createObjectURL(blob);
+                                resultsContainer.innerHTML = `<div class="bg-green-100 p-4 rounded-lg text-center"><a href="${url}" download="recording.webm" class="font-bold text-green-800 underline">Download Recording</a></div>`;
+                                recordedChunks = [];
+                                preview.srcObject = null;
+                                stream.getTracks().forEach(track => track.stop());
+                            };
+                            
+                            mediaRecorder.start();
+                            startBtn.classList.add('hidden');
+                            stopBtn.classList.remove('hidden');
+
+                        } catch (err) {
+                            resultsContainer.innerHTML = `<div class="bg-red-100 text-red-800 p-4 rounded-lg">Error: ${err.message}</div>`;
+                        }
+                    };
+
+                    stopBtn.onclick = () => {
+                        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                            mediaRecorder.stop();
+                        }
+                        startBtn.classList.remove('hidden');
+                        stopBtn.classList.add('hidden');
+                    };
+                    break;
+                }
             }
         };
         
-        const setupScrollAnimations = () => { const animatedSections = document.querySelectorAll('.animated-section'); const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); } }); }, { threshold: 0.1 }); animatedSections.forEach(section => observer.observe(section)); };
+        const setupScrollAnimations = () => {
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedSections.forEach(section => observer.observe(section));
+        };
         
         document.addEventListener('DOMContentLoaded', render);
-
     </script>
 </body>
 </html>
