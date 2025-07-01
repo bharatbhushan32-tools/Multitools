@@ -21,7 +21,7 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const ffmpeg = require('fluent-ffmpeg'); // CRITICAL: This was missing
+const ffmpeg = require('fluent-ffmpeg');
 
 // --- 2. Setup & Middleware ---
 const app = express();
@@ -49,7 +49,6 @@ const cleanupFile = (filePath) => {
     setTimeout(() => {
         fs.unlink(filePath, (err) => {
             if (err) {
-                // Ignore errors if file doesn't exist (e.g., already cleaned up)
                 if (err.code !== 'ENOENT') {
                     console.error(`Failed to delete file: ${filePath}`, err);
                 }
@@ -66,7 +65,6 @@ const checkFfmpeg = () => {
         exec('ffmpeg -version', (error) => {
             if (error) {
                 console.warn('\n--- 🔴 WARNING: FFmpeg NOT FOUND 🔴 ---');
-                console.warn('FFmpeg is not installed or not in your system\'s PATH.');
                 console.warn('Video and audio conversion tools will NOT work.');
                 console.warn('Please install FFmpeg from: https://ffmpeg.org/download.html');
                 console.warn('-------------------------------------------\n');
@@ -84,6 +82,13 @@ const checkFfmpeg = () => {
 // Welcome Route
 app.get('/', (req, res) => res.json({ message: 'All-in-One Tools API is running!' }));
 
+// Helper function to build the full URL
+const getFullUrl = (req, filePath) => {
+    // Render.com sets the 'x-forwarded-proto' header to 'https'
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    return `${protocol}://${req.get('host')}${filePath}`;
+};
+
 // === YouTube Tools ===
 app.post('/api/yt-thumbnail-downloader', async (req, res) => {
     try {
@@ -92,7 +97,6 @@ app.post('/api/yt-thumbnail-downloader', async (req, res) => {
             return res.status(400).json({ error: 'Invalid or missing YouTube URL.' });
         }
         const info = await ytdl.getInfo(url);
-        // Sending the full thumbnail array as the frontend expects
         res.json({ thumbnails: info.videoDetails.thumbnails });
     } catch (error) {
         console.error('Thumbnail downloader error:', error);
@@ -110,20 +114,18 @@ app.post('/api/yt-to-mp3-converter', (req, res) => {
         const outputFileName = `audio-${Date.now()}.mp3`;
         const outputFilePath = path.join(outputsDir, outputFileName);
 
-        res.setHeader('Content-Type', 'application/json');
-
         ffmpeg(ytdl(url, { quality: 'highestaudio' }))
             .audioBitrate(128)
             .save(outputFilePath)
             .on('end', () => {
-                const fileUrl = `/outputs/${outputFileName}`;
+                const fileUrl = getFullUrl(req, `/outputs/${outputFileName}`);
                 res.json({ message: 'Conversion successful!', fileUrl });
                 cleanupFile(outputFilePath);
             })
             .on('error', (err) => {
                 console.error('FFmpeg error during YT to MP3 conversion:', err);
                 res.status(500).json({ error: 'Failed to convert video to MP3.' });
-                cleanupFile(outputFilePath); // Clean up partial file on error
+                cleanupFile(outputFilePath);
             });
 
     } catch (error) {
@@ -146,7 +148,8 @@ app.post('/api/image-compressor', upload.single('files'), async (req, res) => {
             .jpeg({ quality: quality, progressive: true, optimizeScans: true })
             .toFile(outputFilePath);
         
-        const fileUrl = `/outputs/${outputFileName}`;
+        // *** THE FIX IS HERE ***
+        const fileUrl = getFullUrl(req, `/outputs/${outputFileName}`);
         res.json({ message: 'Image compressed successfully!', fileUrl });
 
         cleanupFile(req.file.path);
@@ -170,12 +173,13 @@ app.post('/api/image-resizer', upload.single('files'), async (req, res) => {
             .resize({
                 width: width ? parseInt(width) : undefined,
                 height: height ? parseInt(height) : undefined,
-                fit: 'inside', // Avoids stretching the image
-                withoutEnlargement: true // Prevents making image larger than original
+                fit: 'inside',
+                withoutEnlargement: true
             })
             .toFile(outputFilePath);
 
-        const fileUrl = `/outputs/${outputFileName}`;
+        // *** THE FIX IS HERE ***
+        const fileUrl = getFullUrl(req, `/outputs/${outputFileName}`);
         res.json({ message: 'Image resized successfully!', fileUrl });
 
         cleanupFile(req.file.path);
@@ -200,7 +204,7 @@ app.post('/api/pdf-merger', upload.array('files'), async (req, res) => {
             const pdfDoc = await PDFDocument.load(pdfBytes);
             const copiedPages = await mergedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
             copiedPages.forEach((page) => mergedPdf.addPage(page));
-            cleanupFile(file.path); // Clean up each uploaded file after use
+            cleanupFile(file.path);
         }
 
         const mergedPdfBytes = await mergedPdf.save();
@@ -208,7 +212,8 @@ app.post('/api/pdf-merger', upload.array('files'), async (req, res) => {
         const outputFilePath = path.join(outputsDir, outputFileName);
         fs.writeFileSync(outputFilePath, mergedPdfBytes);
         
-        const fileUrl = `/outputs/${outputFileName}`;
+        // *** THE FIX IS HERE ***
+        const fileUrl = getFullUrl(req, `/outputs/${outputFileName}`);
         res.json({ message: 'PDFs merged successfully!', fileUrl });
         cleanupFile(outputFilePath);
 
@@ -219,10 +224,10 @@ app.post('/api/pdf-merger', upload.array('files'), async (req, res) => {
 });
 
 // ... Placeholder for the other 55 tool endpoints ...
-// Each would follow a similar pattern: define route, handle request, process data/files, send response.
+// Remember to use getFullUrl(req, '/outputs/filename') for all routes that return a file.
 
 // --- 4. Start Server ---
 app.listen(PORT, async () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
-    await checkFfmpeg(); // Check for FFmpeg on startup
+    await checkFfmpeg();
 });
